@@ -1,0 +1,818 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/ui.gd" id="1_ui"]
+[ext_resource type="Script" path="res://scenes/ui/touch_controls.gd" id="2_touch"]
+
+[node name="UI" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_ui")
+
+[node name="HUD" type="MarginContainer" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="HUD"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Top" type="HBoxContainer" parent="HUD/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="PauseButton" type="Button" parent="HUD/VBox/Top"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(64, 64)
+size_flags_vertical = 0
+focus_mode = 0
+text = "II"
+
+[node name="Logo" type="HBoxContainer" parent="HUD/VBox/Top"]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Doom1" type="Label" parent="HUD/VBox/Top/Logo"]
+layout_mode = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "DOOM"
+
+[node name="Doom2" type="Label" parent="HUD/VBox/Top/Logo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.25, 0.18, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "DOOM"
+
+[node name="SpacerL" type="Control" parent="HUD/VBox/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="TimerPanel" type="PanelContainer" parent="HUD/VBox/Top"]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="TimerLabel" type="Label" parent="HUD/VBox/Top/TimerPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "SÀN THU HẸP SAU  20"
+horizontal_alignment = 1
+
+[node name="SpacerR" type="Control" parent="HUD/VBox/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="AlivePanel" type="PanelContainer" parent="HUD/VBox/Top"]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="AliveLabel" type="Label" parent="HUD/VBox/Top/AlivePanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "MÀN 1/3 · 00:00.00
+8 / 8 CÒN LẠI
+ĐẨY RA: 0"
+horizontal_alignment = 2
+
+[node name="Middle" type="Control" parent="HUD/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Feed" type="Label" parent="HUD/VBox/Middle"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 48.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="Announce" type="Label" parent="HUD/VBox/Middle"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.55, 1)
+theme_override_constants/outline_size = 18
+theme_override_font_sizes/font_size = 72
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bottom" type="HBoxContainer" parent="HUD/VBox"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="DashPanel" type="PanelContainer" parent="HUD/VBox/Bottom"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DashVBox" type="VBoxContainer" parent="HUD/VBox/Bottom/DashPanel"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DashLabel" type="Label" parent="HUD/VBox/Bottom/DashPanel/DashVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "LAO ĐẨY  [Space]"
+horizontal_alignment = 1
+
+[node name="DashBar" type="ProgressBar" parent="HUD/VBox/Bottom/DashPanel/DashVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(220, 14)
+mouse_filter = 2
+max_value = 1.0
+step = 0.0
+value = 1.0
+show_percentage = false
+
+[node name="Crosshair" type="CenterContainer" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+mouse_filter = 2
+
+[node name="Cross" type="Control" parent="Crosshair"]
+layout_mode = 2
+custom_minimum_size = Vector2(28, 28)
+mouse_filter = 2
+
+[node name="Top" type="ColorRect" parent="Crosshair/Cross"]
+layout_mode = 1
+offset_left = 13.0
+offset_top = 0.0
+offset_right = 15.0
+offset_bottom = 9.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.9)
+
+[node name="Bottom" type="ColorRect" parent="Crosshair/Cross"]
+layout_mode = 1
+offset_left = 13.0
+offset_top = 19.0
+offset_right = 15.0
+offset_bottom = 28.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.9)
+
+[node name="Left" type="ColorRect" parent="Crosshair/Cross"]
+layout_mode = 1
+offset_left = 0.0
+offset_top = 13.0
+offset_right = 9.0
+offset_bottom = 15.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.9)
+
+[node name="Right" type="ColorRect" parent="Crosshair/Cross"]
+layout_mode = 1
+offset_left = 19.0
+offset_top = 13.0
+offset_right = 28.0
+offset_bottom = 15.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.9)
+
+[node name="Touch" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+mouse_filter = 2
+script = ExtResource("2_touch")
+
+[node name="Pause" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+
+[node name="Dim" type="ColorRect" parent="Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Center" type="CenterContainer" parent="Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Pause/Center"]
+layout_mode = 2
+custom_minimum_size = Vector2(380, 0)
+
+[node name="VBox" type="VBoxContainer" parent="Pause/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="PauseTitle" type="Label" parent="Pause/Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 48
+text = "TẠM DỪNG"
+horizontal_alignment = 1
+
+[node name="TPSToggle" type="CheckButton" parent="Pause/Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Camera sau lưng"
+
+[node name="ResumeButton" type="Button" parent="Pause/Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Tiếp tục"
+
+[node name="PauseRestartButton" type="Button" parent="Pause/Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Chơi lại màn"
+
+[node name="PauseSettingsButton" type="Button" parent="Pause/Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cài đặt"
+
+[node name="PauseMenuButton" type="Button" parent="Pause/Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Menu chính"
+
+[node name="Result" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+
+[node name="Dim" type="ColorRect" parent="Result"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="Center" type="CenterContainer" parent="Result"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Result/Center"]
+layout_mode = 2
+custom_minimum_size = Vector2(380, 0)
+
+[node name="VBox" type="VBoxContainer" parent="Result/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="ResultTitle" type="Label" parent="Result/Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 48
+text = "CHIẾN THẮNG!"
+horizontal_alignment = 1
+
+[node name="ResultDetail" type="Label" parent="Result/Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Hạng 1 / 8"
+horizontal_alignment = 1
+
+[node name="ResultRestartButton" type="Button" parent="Result/Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Chơi lại"
+
+[node name="ResultMenuButton" type="Button" parent="Result/Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Menu chính"
+
+[node name="CharacterSelect" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+mouse_filter = 2
+
+[node name="Margin" type="MarginContainer" parent="CharacterSelect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 24
+
+[node name="HBox" type="HBoxContainer" parent="CharacterSelect/Margin"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Spacer" type="Control" parent="CharacterSelect/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="CharacterSelect/Margin/HBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(440, 0)
+size_flags_vertical = 4
+
+[node name="VBox" type="VBoxContainer" parent="CharacterSelect/Margin/HBox/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SelectTitle" type="Label" parent="CharacterSelect/Margin/HBox/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.4, 1)
+theme_override_font_sizes/font_size = 22
+text = "CHỌN CHIẾN BINH"
+horizontal_alignment = 1
+
+[node name="Nav" type="HBoxContainer" parent="CharacterSelect/Margin/HBox/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PrevButton" type="Button" parent="CharacterSelect/Margin/HBox/Panel/VBox/Nav"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(64, 64)
+text = "<"
+
+[node name="CharName" type="Label" parent="CharacterSelect/Margin/HBox/Panel/VBox/Nav"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 40
+text = "Barbarian"
+horizontal_alignment = 1
+
+[node name="NextButton" type="Button" parent="CharacterSelect/Margin/HBox/Panel/VBox/Nav"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(64, 64)
+text = ">"
+
+[node name="CharIndex" type="Label" parent="CharacterSelect/Margin/HBox/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+modulate = Color(1, 1, 1, 0.7)
+theme_override_font_sizes/font_size = 18
+text = "1 / 8"
+horizontal_alignment = 1
+
+[node name="CharDesc" type="Label" parent="CharacterSelect/Margin/HBox/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 56)
+theme_override_font_sizes/font_size = 20
+text = "Mô tả"
+autowrap_mode = 3
+
+[node name="Stats" type="GridContainer" parent="CharacterSelect/Margin/HBox/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="SpeedBarLabel" type="Label" parent="CharacterSelect/Margin/HBox/Panel/VBox/Stats"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Tốc độ"
+
+[node name="SpeedBar" type="ProgressBar" parent="CharacterSelect/Margin/HBox/Panel/VBox/Stats"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 16)
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.0
+value = 0.5
+show_percentage = false
+
+[node name="PowerBarLabel" type="Label" parent="CharacterSelect/Margin/HBox/Panel/VBox/Stats"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Lực đẩy"
+
+[node name="PowerBar" type="ProgressBar" parent="CharacterSelect/Margin/HBox/Panel/VBox/Stats"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 16)
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.0
+value = 0.5
+show_percentage = false
+
+[node name="WeightBarLabel" type="Label" parent="CharacterSelect/Margin/HBox/Panel/VBox/Stats"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Nặng"
+
+[node name="WeightBar" type="ProgressBar" parent="CharacterSelect/Margin/HBox/Panel/VBox/Stats"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 16)
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.0
+value = 0.5
+show_percentage = false
+
+[node name="ConfirmButton" type="Button" parent="CharacterSelect/Margin/HBox/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Vào trận"
+
+[node name="SelectBackButton" type="Button" parent="CharacterSelect/Margin/HBox/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quay lại"
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Shade" type="ColorRect" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.08, 0.05, 0.04, 0.35)
+
+[node name="Margin" type="MarginContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 32
+
+[node name="Left" type="VBoxContainer" parent="Menu/Margin"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 14
+
+[node name="Logo" type="HBoxContainer" parent="Menu/Margin/Left"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Doom1" type="Label" parent="Menu/Margin/Left/Logo"]
+layout_mode = 2
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 80
+text = "DOOM"
+
+[node name="Doom2" type="Label" parent="Menu/Margin/Left/Logo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.25, 0.18, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 80
+text = "DOOM"
+
+[node name="Subtitle" type="Label" parent="Menu/Margin/Left"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Đấu trường sinh tồn — đẩy tất cả xuống vực!"
+
+[node name="MenuButtons" type="VBoxContainer" parent="Menu/Margin/Left"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(320, 0)
+size_flags_horizontal = 0
+theme_override_constants/separation = 12
+
+[node name="PlayButton" type="Button" parent="Menu/Margin/Left/MenuButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Chơi"
+
+[node name="RecordsButton" type="Button" parent="Menu/Margin/Left/MenuButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Kỷ lục"
+
+[node name="GuideButton" type="Button" parent="Menu/Margin/Left/MenuButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Hướng dẫn"
+
+[node name="SettingsButton" type="Button" parent="Menu/Margin/Left/MenuButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cài đặt"
+
+[node name="QuitButton" type="Button" parent="Menu/Margin/Left/MenuButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Thoát"
+
+[node name="Guide" type="PanelContainer" parent="Menu/Margin/Left"]
+unique_name_in_owner = true
+layout_mode = 2
+visible = false
+custom_minimum_size = Vector2(620, 0)
+
+[node name="VBox" type="VBoxContainer" parent="Menu/Margin/Left/Guide"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Menu/Margin/Left/Guide/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "HƯỚNG DẪN"
+
+[node name="Body" type="RichTextLabel" parent="Menu/Margin/Left/Guide/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 360)
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 19
+bbcode_enabled = true
+text = "[b]Mục tiêu:[/b] đẩy mọi đối thủ rơi khỏi đấu trường. Người cuối cùng còn trên sàn thắng.
+[b]Chọn chiến binh:[/b] 8 nhân vật có Tốc độ, Lực đẩy, Nặng khác nhau (càng nặng càng khó bị đẩy).
+
+[b]PC:[/b] WASD di chuyển · Space lao đẩy · Esc tạm dừng
+[b]Điện thoại:[/b] kéo joystick bên trái để di chuyển · nút LAO bên phải để lao đẩy
+
+• Đứng yên mà lao thì nhân vật lao theo hướng đang nhìn.
+• Lao có thời gian hồi chiêu (thanh LAO ĐẨY ở dưới màn hình).
+• Bị lao trúng sẽ bị hất văng và mất điều khiển trong chốc lát.
+• Hai người lao vào nhau thì cả hai cùng bật ra.
+• Vòng ngoài của sàn nhấp nháy đỏ rồi rơi xuống theo thời gian — hãy vào giữa!
+• Đẩy được đối thủ ra ngoài sẽ được +1 điểm ĐẨY RA.
+
+[b]3 màn liên tục:[/b] Đấu Trường Mây (7 bot) → Đỉnh Băng (9 bot) → Miệng Núi Lửa (11 bot, mỗi bot hồi sinh 1 lần, rơi từ trên trời xuống chỗ có vòng đỏ). Luôn bắt đầu từ màn 1; thua thì thử lại màn đó, đồng hồ vẫn chạy.
+[b]Kỷ lục:[/b] phá đảo cả 3 màn để ghi tổng thời gian vào bảng Kỷ lục.
+[b]Camera sau lưng:[/b] bật trong menu Tạm dừng. Di chuột / kéo nửa phải màn hình để xoay; đứng yên mà lao thì lao theo tâm ngắm.
+
+[b]NGUỒN TÀI NGUYÊN[/b]
+DOOM DOOM — đồ án game 3D, Godot Engine 4.7. Lấy cảm hứng từ Sumo Doom.
+• Nhân vật, vũ khí & animation: KayKit Adventurers 2.0 (FREE) — Kay Lousberg (kaylousberg.com), CC0. Hắc Kỵ Sĩ và Hỏa Pháp Sư dùng bản đổi màu texture.
+• Nhạc các màn: Workshop, The Walking Dunes, Alley Cat — Abstraction (abstractionmusic.com, tallbeard.itch.io/music-loop-bundle), CC0.
+• Nhạc menu: Goblins Den — Minifantasy Dungeon Music, Leohpaz.
+• Hiệu ứng âm thanh: tự tổng hợp (sóng âm đơn giản), lưu thành file WAV.
+• Sàn đấu, khung cảnh, VFX: hình học & material tự dựng trong Godot.
+• Engine: Godot Engine (MIT) — godotengine.org"
+
+[node name="GuideBackButton" type="Button" parent="Menu/Margin/Left/Guide/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Quay lại"
+
+[node name="Records" type="PanelContainer" parent="Menu/Margin/Left"]
+unique_name_in_owner = true
+layout_mode = 2
+visible = false
+custom_minimum_size = Vector2(620, 0)
+
+[node name="VBox" type="VBoxContainer" parent="Menu/Margin/Left/Records"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Menu/Margin/Left/Records/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "KỶ LỤC PHÁ ĐẢO"
+
+[node name="RecordsBody" type="RichTextLabel" parent="Menu/Margin/Left/Records/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 360)
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 19
+bbcode_enabled = true
+text = ""
+
+[node name="RecordsBackButton" type="Button" parent="Menu/Margin/Left/Records/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Quay lại"
+
+[node name="Settings" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+
+[node name="Dim" type="ColorRect" parent="Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Center" type="CenterContainer" parent="Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Settings/Center"]
+layout_mode = 2
+custom_minimum_size = Vector2(620, 0)
+
+[node name="VBox" type="VBoxContainer" parent="Settings/Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="SettingsTitle" type="Label" parent="Settings/Center/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.78, 0.3, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 44
+text = "CÀI ĐẶT"
+horizontal_alignment = 1
+
+[node name="Rows" type="GridContainer" parent="Settings/Center/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 18
+columns = 3
+
+[node name="MasterLabel" type="Label" parent="Settings/Center/Panel/VBox/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Âm lượng chung"
+
+[node name="MasterSlider" type="HSlider" parent="Settings/Center/Panel/VBox/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(300, 30)
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+rounded = true
+
+[node name="MasterValue" type="Label" parent="Settings/Center/Panel/VBox/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(70, 0)
+theme_override_colors/font_color = Color(0.98, 0.78, 0.3, 1)
+theme_override_font_sizes/font_size = 22
+text = "100%"
+horizontal_alignment = 2
+
+[node name="MusicLabel" type="Label" parent="Settings/Center/Panel/VBox/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Nhạc nền"
+
+[node name="MusicSlider" type="HSlider" parent="Settings/Center/Panel/VBox/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(300, 30)
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 70.0
+rounded = true
+
+[node name="MusicValue" type="Label" parent="Settings/Center/Panel/VBox/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(70, 0)
+theme_override_colors/font_color = Color(0.98, 0.78, 0.3, 1)
+theme_override_font_sizes/font_size = 22
+text = "70%"
+horizontal_alignment = 2
+
+[node name="SFXLabel" type="Label" parent="Settings/Center/Panel/VBox/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Hiệu ứng"
+
+[node name="SFXSlider" type="HSlider" parent="Settings/Center/Panel/VBox/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(300, 30)
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+rounded = true
+
+[node name="SFXValue" type="Label" parent="Settings/Center/Panel/VBox/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(70, 0)
+theme_override_colors/font_color = Color(0.98, 0.78, 0.3, 1)
+theme_override_font_sizes/font_size = 22
+text = "100%"
+horizontal_alignment = 2
+
+[node name="VibrateToggleLabel" type="Label" parent="Settings/Center/Panel/VBox/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Rung"
+
+[node name="VibrateToggle" type="CheckButton" parent="Settings/Center/Panel/VBox/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VibrateToggleSpacer" type="Control" parent="Settings/Center/Panel/VBox/Rows"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TouchToggleLabel" type="Label" parent="Settings/Center/Panel/VBox/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Điều khiển cảm ứng"
+
+[node name="TouchToggle" type="CheckButton" parent="Settings/Center/Panel/VBox/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TouchToggleSpacer" type="Control" parent="Settings/Center/Panel/VBox/Rows"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SettingsCloseButton" type="Button" parent="Settings/Center/Panel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(240, 0)
+size_flags_horizontal = 4
+text = "Đóng"

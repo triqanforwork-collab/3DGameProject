@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klt4g"]
+albedo_color = Color(0.17, 0.15, 0.15, 1)
+roughness = 0.9
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pv5ct"]
+top_radius = 0.4
+bottom_radius = 5.0
+height = 50.0
+radial_segments = 6
+rings = 1
+
+[node name="BasaltSpire" type="Node3D" unique_id=1228779884]
+
+[node name="Rock" type="MeshInstance3D" parent="." unique_id=1215765061]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
+material_override = SubResource("StandardMaterial3D_klt4g")
+mesh = SubResource("CylinderMesh_pv5ct")

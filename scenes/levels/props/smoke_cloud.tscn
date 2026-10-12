@@ -1,0 +1,42 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6a4u0"]
+albedo_color = Color(0.3, 0.26, 0.25, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_g541s"]
+radius = 1.0
+height = 2.0
+radial_segments = 8
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_pne6c"]
+radius = 1.0
+height = 2.0
+radial_segments = 8
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_2m7m3"]
+radius = 1.0
+height = 2.0
+radial_segments = 8
+rings = 4
+
+[node name="SmokeCloud" type="Node3D" unique_id=1430351210]
+
+[node name="Puff0" type="MeshInstance3D" parent="." unique_id=1328920044]
+transform = Transform3D(1.6, 0, 0, 0, 0.6, 0, 0, 0, 1.1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_6a4u0")
+cast_shadow = 0
+mesh = SubResource("SphereMesh_g541s")
+
+[node name="Puff1" type="MeshInstance3D" parent="." unique_id=378613762]
+transform = Transform3D(1.1, 0, 0, 0, 0.45, 0, 0, 0, 0.9, 1.3, -0.15, 0.3)
+material_override = SubResource("StandardMaterial3D_6a4u0")
+cast_shadow = 0
+mesh = SubResource("SphereMesh_pne6c")
+
+[node name="Puff2" type="MeshInstance3D" parent="." unique_id=479160320]
+transform = Transform3D(1, 0, 0, 0, 0.4, 0, 0, 0, 0.8, -1.1, -0.2, -0.2)
+material_override = SubResource("StandardMaterial3D_6a4u0")
+cast_shadow = 0
+mesh = SubResource("SphereMesh_2m7m3")

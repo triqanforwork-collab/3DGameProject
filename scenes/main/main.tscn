@@ -1,0 +1,43 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/main/main.gd" id="1_th5th"]
+[ext_resource type="PackedScene" path="res://scenes/characters/barbarian.tscn" id="2_7smn1"]
+[ext_resource type="PackedScene" path="res://scenes/characters/knight.tscn" id="3_raeie"]
+[ext_resource type="PackedScene" path="res://scenes/characters/mage.tscn" id="4_hxu8e"]
+[ext_resource type="PackedScene" path="res://scenes/characters/ranger.tscn" id="5_nvumn"]
+[ext_resource type="PackedScene" path="res://scenes/characters/rogue.tscn" id="6_ou6is"]
+[ext_resource type="PackedScene" path="res://scenes/characters/rogue_hooded.tscn" id="7_necax"]
+[ext_resource type="PackedScene" path="res://scenes/characters/black_knight.tscn" id="8_r4lks"]
+[ext_resource type="PackedScene" path="res://scenes/characters/fire_mage.tscn" id="9_pg34l"]
+[ext_resource type="PackedScene" path="res://scenes/levels/sky_arena.tscn" id="10_m4h2d"]
+[ext_resource type="PackedScene" path="res://scenes/levels/ice_peak.tscn" id="11_hxu8e"]
+[ext_resource type="Script" path="res://scenes/main/camera_rig.gd" id="11_p8abn"]
+[ext_resource type="PackedScene" path="res://scenes/levels/volcano.tscn" id="12_nvumn"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ui.tscn" id="12_s17dp"]
+[ext_resource type="Script" path="res://scenes/ui/ui.gd" id="13_37hlw"]
+[ext_resource type="Script" path="res://scenes/levels/level.gd" id="13_ou6is"]
+
+[node name="Main" type="Node3D" unique_id=1956462004]
+script = ExtResource("1_th5th")
+roster = Array[PackedScene]([ExtResource("2_7smn1"), ExtResource("3_raeie"), ExtResource("4_hxu8e"), ExtResource("5_nvumn"), ExtResource("6_ou6is"), ExtResource("7_necax"), ExtResource("8_r4lks"), ExtResource("9_pg34l")])
+stages = Array[PackedScene]([ExtResource("10_m4h2d"), ExtResource("11_hxu8e"), ExtResource("12_nvumn")])
+
+[node name="Level" type="Node3D" parent="." unique_id=1610489219 instance=ExtResource("10_m4h2d")]
+script = ExtResource("13_ou6is")
+bot_think_interval = 0.35
+bot_reaction_time = 0.45
+bot_aim_error_deg = 18.0
+bot_aggression = 0.5
+
+[node name="Fighters" type="Node3D" parent="." unique_id=968818078]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=466690360]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 18, 18)
+current = true
+fov = 55.0
+script = ExtResource("11_p8abn")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1093178222 instance=ExtResource("12_s17dp")]
+process_mode = 3
+layer = 10
+script = ExtResource("13_37hlw")

@@ -1,0 +1,103 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/characters/fighter.gd" id="1_2g8ji"]
+[ext_resource type="PackedScene" path="res://assets/characters/gltf/Rogue.glb" id="2_1sbx8"]
+[ext_resource type="PackedScene" path="res://assets/props/dagger.gltf" id="3_uriup"]
+[ext_resource type="AnimationLibrary" path="res://assets/animations/general.res" id="4_tphdn"]
+[ext_resource type="AnimationLibrary" path="res://assets/animations/movement.res" id="5_itm45"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3q2dd"]
+height = 2.395996
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wrkgt"]
+shading_mode = 0
+albedo_color = Color(1, 0.85, 0.2, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_r2uk1"]
+inner_radius = 0.62
+outer_radius = 0.78
+rings = 32
+ring_segments = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0dtvh"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_ywit8"]
+radius = 0.12
+height = 0.24
+radial_segments = 6
+rings = 3
+
+[sub_resource type="Gradient" id="Gradient_7e45a"]
+colors = PackedColorArray(0.93, 0.85, 0.7, 0.8, 0.93, 0.85, 0.7, 0)
+
+[node name="Rogue" type="CharacterBody3D" unique_id=1174949994]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_2g8ji")
+character_name = "Đạo Tặc"
+description = "Cú lao cực nhanh nhưng ngắn, khó né."
+weight = 0.9
+move_speed = 5.4
+dash_speed = 18.0
+dash_duration = 0.18
+knockback_force = 8.5
+
+[node name="Visual" type="Node3D" parent="." unique_id=1627090264]
+
+[node name="Model" type="Node3D" parent="Visual" unique_id=465846806 instance=ExtResource("2_1sbx8")]
+
+[node name="RightHand" type="BoneAttachment3D" parent="Visual" unique_id=1158970501]
+bone_name = "handslot.r"
+bone_idx = 16
+use_external_skeleton = true
+external_skeleton = NodePath("../Model/Rig_Medium/Skeleton3D")
+
+[node name="Prop" type="Node3D" parent="Visual/RightHand" unique_id=1743901205 instance=ExtResource("3_uriup")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1456874844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2453613, 0)
+shape = SubResource("CapsuleShape3D_3q2dd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=289232514]
+root_node = NodePath("../Visual/Model")
+libraries/general = ExtResource("4_tphdn")
+libraries/movement = ExtResource("5_itm45")
+
+[node name="Marker" type="MeshInstance3D" parent="." unique_id=2100405548]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 1, 0, 0.04, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_wrkgt")
+cast_shadow = 0
+mesh = SubResource("TorusMesh_r2uk1")
+
+[node name="NameLabel" type="Label3D" parent="." unique_id=870518484]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+pixel_size = 0.01
+billboard = 1
+no_depth_test = true
+render_priority = 10
+outline_render_priority = 9
+text = "Đạo Tặc"
+font_size = 44
+outline_size = 14
+
+[node name="DashDust" type="CPUParticles3D" parent="." unique_id=2105119445]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = SubResource("StandardMaterial3D_0dtvh")
+cast_shadow = 0
+emitting = false
+amount = 16
+lifetime = 0.45
+mesh = SubResource("SphereMesh_ywit8")
+direction = Vector3(0, 1, 0)
+spread = 60.0
+gravity = Vector3(0, 0.5, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.5
+scale_amount_min = 0.6
+scale_amount_max = 1.4
+color_ramp = SubResource("Gradient_7e45a")

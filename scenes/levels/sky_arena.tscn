@@ -1,0 +1,379 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_h3ghl"]
+[ext_resource type="Script" path="res://scenes/levels/arena.gd" id="1_nsr5s"]
+[ext_resource type="ArrayMesh" path="res://assets/arena/sky_arena/center_mesh.res" id="2_h3ghl"]
+[ext_resource type="AudioStream" path="res://assets/audio/music/stage1_workshop_breadboard.ogg" id="2_vgl6n"]
+[ext_resource type="Shape3D" path="res://assets/arena/sky_arena/center_shape.res" id="3_vgl6n"]
+[ext_resource type="ArrayMesh" path="res://assets/arena/sky_arena/ring0_mesh.res" id="4_6t8u3"]
+[ext_resource type="Shape3D" path="res://assets/arena/sky_arena/ring0_shape.res" id="5_4ke3l"]
+[ext_resource type="ArrayMesh" path="res://assets/arena/sky_arena/ring1_mesh.res" id="6_84aih"]
+[ext_resource type="Shape3D" path="res://assets/arena/sky_arena/ring1_shape.res" id="7_4q0k8"]
+[ext_resource type="ArrayMesh" path="res://assets/arena/sky_arena/ring2_mesh.res" id="8_d2dwf"]
+[ext_resource type="Shape3D" path="res://assets/arena/sky_arena/ring2_shape.res" id="9_l0u4a"]
+[ext_resource type="ArrayMesh" path="res://assets/arena/sky_arena/ring3_mesh.res" id="10_pbpit"]
+[ext_resource type="Shape3D" path="res://assets/arena/sky_arena/ring3_shape.res" id="11_uxmr3"]
+[ext_resource type="PackedScene" path="res://scenes/levels/props/spire_pagoda.tscn" id="12_l02ep"]
+[ext_resource type="PackedScene" path="res://scenes/levels/props/spire.tscn" id="13_y07n6"]
+[ext_resource type="PackedScene" path="res://scenes/levels/props/cloud.tscn" id="14_mkvcu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vwtbx"]
+sky_top_color = Color(0.42, 0.55, 0.7, 1)
+sky_horizon_color = Color(0.86, 0.8, 0.72, 1)
+ground_bottom_color = Color(0.8, 0.76, 0.7, 1)
+ground_horizon_color = Color(0.86, 0.8, 0.72, 1)
+
+[sub_resource type="Sky" id="Sky_r4qpl"]
+sky_material = SubResource("ProceduralSkyMaterial_vwtbx")
+
+[sub_resource type="Environment" id="Environment_sto52"]
+background_mode = 2
+sky = SubResource("Sky_r4qpl")
+ambient_light_source = 3
+ambient_light_energy = 0.45
+tonemap_mode = 2
+fog_enabled = true
+fog_light_color = Color(0.86, 0.81, 0.74, 1)
+fog_density = 0.004
+fog_sky_affect = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yi5uh"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(0.86, 0.68, 0.45, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1l165"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k2xj5"]
+albedo_color = Color(0.78, 0.62, 0.35, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_fq2hy"]
+inner_radius = 3.36
+outer_radius = 3.6
+rings = 48
+ring_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_03aix"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(0.7, 0.24, 0.17, 1)
+roughness = 0.9
+
+[sub_resource type="TorusMesh" id="TorusMesh_65mxi"]
+inner_radius = 9.86
+outer_radius = 10.1
+rings = 48
+ring_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mkdma"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(0.84, 0.64, 0.42, 1)
+roughness = 0.9
+
+[sub_resource type="TorusMesh" id="TorusMesh_dba1m"]
+inner_radius = 8.235
+outer_radius = 8.475
+rings = 48
+ring_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iivhg"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(0.7, 0.24, 0.17, 1)
+roughness = 0.9
+
+[sub_resource type="TorusMesh" id="TorusMesh_1oa2x"]
+inner_radius = 6.61
+outer_radius = 6.85
+rings = 48
+ring_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8wdpx"]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_color = Color(0.84, 0.64, 0.42, 1)
+roughness = 0.9
+
+[sub_resource type="TorusMesh" id="TorusMesh_3okvl"]
+inner_radius = 4.985
+outer_radius = 5.225
+rings = 48
+ring_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_61v0i"]
+albedo_color = Color(0.74, 0.72, 0.7, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bx5x6"]
+size = Vector2(400, 400)
+
+[node name="SkyArena" type="Node3D" unique_id=1610489219]
+script = ExtResource("1_h3ghl")
+music = ExtResource("2_vgl6n")
+bot_think_interval = 0.35
+bot_reaction_time = 0.45
+bot_aim_error_deg = 18.0
+bot_aggression = 0.5
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=905320372]
+environment = SubResource("Environment_sto52")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=723270230]
+transform = Transform3D(0.8660254, 0.43301272, -0.24999999, 0, 0.49999997, 0.86602545, 0.5, -0.75, 0.43301266, 0, 0, 0)
+light_color = Color(1, 0.96, 0.88, 1)
+shadow_enabled = true
+directional_shadow_max_distance = 60.0
+
+[node name="Arena" type="Node3D" parent="." unique_id=1104823942]
+script = ExtResource("1_nsr5s")
+
+[node name="Center" type="StaticBody3D" parent="Arena" unique_id=1515427966]
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Arena/Center" unique_id=378114814]
+mesh = ExtResource("2_h3ghl")
+surface_material_override/0 = SubResource("StandardMaterial3D_yi5uh")
+surface_material_override/1 = SubResource("StandardMaterial3D_1l165")
+
+[node name="Collision" type="CollisionShape3D" parent="Arena/Center" unique_id=1162463113]
+shape = ExtResource("3_vgl6n")
+
+[node name="Rope" type="MeshInstance3D" parent="Arena/Center" unique_id=1382506573]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 0, 0.02, 0)
+material_override = SubResource("StandardMaterial3D_k2xj5")
+mesh = SubResource("TorusMesh_fq2hy")
+
+[node name="Rings" type="Node3D" parent="Arena" unique_id=1480582332]
+
+[node name="Ring0" type="StaticBody3D" parent="Arena/Rings" unique_id=1580871201]
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Arena/Rings/Ring0" unique_id=740759843]
+mesh = ExtResource("4_6t8u3")
+surface_material_override/0 = SubResource("StandardMaterial3D_03aix")
+surface_material_override/1 = SubResource("StandardMaterial3D_1l165")
+
+[node name="Collision" type="CollisionShape3D" parent="Arena/Rings/Ring0" unique_id=160563817]
+shape = ExtResource("5_4ke3l")
+
+[node name="Rope" type="MeshInstance3D" parent="Arena/Rings/Ring0" unique_id=850837729]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 0, 0.02, 0)
+material_override = SubResource("StandardMaterial3D_k2xj5")
+mesh = SubResource("TorusMesh_65mxi")
+
+[node name="Ring1" type="StaticBody3D" parent="Arena/Rings" unique_id=1140187236]
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Arena/Rings/Ring1" unique_id=300607418]
+mesh = ExtResource("6_84aih")
+surface_material_override/0 = SubResource("StandardMaterial3D_mkdma")
+surface_material_override/1 = SubResource("StandardMaterial3D_1l165")
+
+[node name="Collision" type="CollisionShape3D" parent="Arena/Rings/Ring1" unique_id=385995071]
+shape = ExtResource("7_4q0k8")
+
+[node name="Rope" type="MeshInstance3D" parent="Arena/Rings/Ring1" unique_id=290345884]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 0, 0.02, 0)
+material_override = SubResource("StandardMaterial3D_k2xj5")
+mesh = SubResource("TorusMesh_dba1m")
+
+[node name="Ring2" type="StaticBody3D" parent="Arena/Rings" unique_id=1806185969]
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Arena/Rings/Ring2" unique_id=32711873]
+mesh = ExtResource("8_d2dwf")
+surface_material_override/0 = SubResource("StandardMaterial3D_iivhg")
+surface_material_override/1 = SubResource("StandardMaterial3D_1l165")
+
+[node name="Collision" type="CollisionShape3D" parent="Arena/Rings/Ring2" unique_id=1962917006]
+shape = ExtResource("9_l0u4a")
+
+[node name="Rope" type="MeshInstance3D" parent="Arena/Rings/Ring2" unique_id=820173005]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 0, 0.02, 0)
+material_override = SubResource("StandardMaterial3D_k2xj5")
+mesh = SubResource("TorusMesh_1oa2x")
+
+[node name="Ring3" type="StaticBody3D" parent="Arena/Rings" unique_id=1110167856]
+collision_mask = 0
+
+[node name="Mesh" type="MeshInstance3D" parent="Arena/Rings/Ring3" unique_id=1278136056]
+mesh = ExtResource("10_pbpit")
+surface_material_override/0 = SubResource("StandardMaterial3D_8wdpx")
+surface_material_override/1 = SubResource("StandardMaterial3D_1l165")
+
+[node name="Collision" type="CollisionShape3D" parent="Arena/Rings/Ring3" unique_id=526715223]
+shape = ExtResource("11_uxmr3")
+
+[node name="Rope" type="MeshInstance3D" parent="Arena/Rings/Ring3" unique_id=1986595111]
+transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, 0, 1, 0, 0.02, 0)
+material_override = SubResource("StandardMaterial3D_k2xj5")
+mesh = SubResource("TorusMesh_3okvl")
+
+[node name="SpawnPoints" type="Node3D" parent="." unique_id=2013642734]
+
+[node name="Spawn1" type="Marker3D" parent="SpawnPoints" unique_id=938957947]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.05, 0)
+gizmo_extents = 0.8
+
+[node name="Spawn2" type="Marker3D" parent="SpawnPoints" unique_id=79486493]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2426405, 0.05, 4.2426405)
+gizmo_extents = 0.8
+
+[node name="Spawn3" type="Marker3D" parent="SpawnPoints" unique_id=822578747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.673819e-16, 0.05, 6)
+gizmo_extents = 0.8
+
+[node name="Spawn4" type="Marker3D" parent="SpawnPoints" unique_id=1528400825]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2426405, 0.05, 4.2426405)
+gizmo_extents = 0.8
+
+[node name="Spawn5" type="Marker3D" parent="SpawnPoints" unique_id=1663467434]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.05, 7.347638e-16)
+gizmo_extents = 0.8
+
+[node name="Spawn6" type="Marker3D" parent="SpawnPoints" unique_id=213845451]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2426405, 0.05, -4.2426405)
+gizmo_extents = 0.8
+
+[node name="Spawn7" type="Marker3D" parent="SpawnPoints" unique_id=1579188577]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1021457e-15, 0.05, -6)
+gizmo_extents = 0.8
+
+[node name="Spawn8" type="Marker3D" parent="SpawnPoints" unique_id=1344051820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2426405, 0.05, -4.2426405)
+gizmo_extents = 0.8
+
+[node name="Showcase" type="Marker3D" parent="." unique_id=731300230]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+
+[node name="Scenery" type="Node3D" parent="." unique_id=654229457]
+
+[node name="CloudSea" type="MeshInstance3D" parent="Scenery" unique_id=1786258397]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
+material_override = SubResource("StandardMaterial3D_61v0i")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_bx5x6")
+
+[node name="Spire1" type="Node3D" parent="Scenery" unique_id=426830063 instance=ExtResource("12_l02ep")]
+transform = Transform3D(-0.5935719, 0, -1.0889932, 0, 1.3042256, 0, 1.0889932, 0, -0.5935719, 45.912968, -45, -0.7548004)
+
+[node name="Spire2" type="Node3D" parent="Scenery" unique_id=1785926106 instance=ExtResource("13_y07n6")]
+transform = Transform3D(0.58990806, 0, -0.68714046, 0, 0.91002274, 0, 0.68714046, 0, 0.58990806, 23.97015, -45, 8.667391)
+
+[node name="Spire3" type="Node3D" parent="Scenery" unique_id=749664381 instance=ExtResource("13_y07n6")]
+transform = Transform3D(-0.8976632, 0, -0.48771602, 0, 1.0452296, 0, 0.48771602, 0, -0.8976632, 31.72112, -45, 15.75501)
+
+[node name="Spire4" type="Node3D" parent="Scenery" unique_id=550288516 instance=ExtResource("12_l02ep")]
+transform = Transform3D(-0.7651064, 0, -0.69522905, 0, 1.3364158, 0, 0.69522905, 0, -0.7651064, 23.489244, -45, 31.918007)
+
+[node name="Spire5" type="Node3D" parent="Scenery" unique_id=704295901 instance=ExtResource("13_y07n6")]
+transform = Transform3D(-0.6117999, 0, 1.2117125, 0, 1.178816, 0, -1.2117125, 0, -0.6117999, 15.675873, -45, 32.255737)
+
+[node name="Spire6" type="Node3D" parent="Scenery" unique_id=799840000 instance=ExtResource("13_y07n6")]
+transform = Transform3D(0.6020587, 0, -0.31954524, 0, 1.144596, 0, 0.31954524, 0, 0.6020587, 1.6796799, -45, 24.717634)
+
+[node name="Spire7" type="Node3D" parent="Scenery" unique_id=200481844 instance=ExtResource("12_l02ep")]
+transform = Transform3D(0.9768268, 0, 0.09836657, 0, 0.8484535, 0, -0.09836657, 0, 0.9768268, -4.237753, -45, 42.035515)
+
+[node name="Spire8" type="Node3D" parent="Scenery" unique_id=1358677083 instance=ExtResource("13_y07n6")]
+transform = Transform3D(-0.3008641, 0, 0.79977, 0, 0.82504296, 0, -0.79977, 0, -0.3008641, -18.736526, -45, 45.3664)
+
+[node name="Spire9" type="Node3D" parent="Scenery" unique_id=2081516718 instance=ExtResource("13_y07n6")]
+transform = Transform3D(0.51322216, 0, 0.5845906, 0, 1.340622, 0, -0.5845906, 0, 0.51322216, -23.1972, -45, 30.79801)
+
+[node name="Spire10" type="Node3D" parent="Scenery" unique_id=1059436465 instance=ExtResource("12_l02ep")]
+transform = Transform3D(0.69850916, 0, 0.48880547, 0, 0.9836412, 0, -0.48880547, 0, 0.69850916, -42.638954, -45, 32.622154)
+
+[node name="Spire11" type="Node3D" parent="Scenery" unique_id=714432934 instance=ExtResource("13_y07n6")]
+transform = Transform3D(0.6968383, 0, -0.004394651, 0, 0.8701279, 0, 0.004394651, 0, 0.6968383, -47.290054, -45, 19.598623)
+
+[node name="Spire12" type="Node3D" parent="Scenery" unique_id=1197179794 instance=ExtResource("13_y07n6")]
+transform = Transform3D(1.0565829, 0, 0.50885606, 0, 1.1929933, 0, -0.50885606, 0, 1.0565829, -51.71211, -45, -2.6948786)
+
+[node name="Spire13" type="Node3D" parent="Scenery" unique_id=720265138 instance=ExtResource("12_l02ep")]
+transform = Transform3D(0.33277267, 0, -1.213535, 0, 1.0053171, 0, 1.213535, 0, 0.33277267, -34.48353, -45, -9.22535)
+
+[node name="Spire14" type="Node3D" parent="Scenery" unique_id=902442512 instance=ExtResource("13_y07n6")]
+transform = Transform3D(-0.6154998, 0, 1.0183511, 0, 1.0777221, 0, -1.0183511, 0, -0.6154998, -25.946249, -45, -14.110248)
+
+[node name="Spire15" type="Node3D" parent="Scenery" unique_id=1901637308 instance=ExtResource("13_y07n6")]
+transform = Transform3D(-1.2317522, 0, 0.019320142, 0, 1.0397638, 0, -0.019320142, 0, -1.2317522, -32.02003, -45, -41.7638)
+
+[node name="Spire16" type="Node3D" parent="Scenery" unique_id=1812481143 instance=ExtResource("12_l02ep")]
+transform = Transform3D(0.7217881, 0, 0.5288941, 0, 0.91759294, 0, -0.5288941, 0, 0.7217881, -13.195991, -45, -22.225018)
+
+[node name="Spire17" type="Node3D" parent="Scenery" unique_id=395257136 instance=ExtResource("13_y07n6")]
+transform = Transform3D(1.2551045, 0, -0.40170172, 0, 1.2463661, 0, 0.40170172, 0, 1.2551045, -1.6049453, -45, -42.536285)
+
+[node name="Spire18" type="Node3D" parent="Scenery" unique_id=1756316362 instance=ExtResource("13_y07n6")]
+transform = Transform3D(-1.1326689, 0, 0.39909545, 0, 0.9699127, 0, -0.39909545, 0, -1.1326689, 8.966619, -45, -36.19265)
+
+[node name="Spire19" type="Node3D" parent="Scenery" unique_id=484442531 instance=ExtResource("12_l02ep")]
+transform = Transform3D(-0.737709, 0, 0.4643751, 0, 0.99499375, 0, -0.4643751, 0, -0.737709, 26.617434, -45, -45.617912)
+
+[node name="Spire20" type="Node3D" parent="Scenery" unique_id=1828293815 instance=ExtResource("13_y07n6")]
+transform = Transform3D(-0.8833724, 0, -0.4514209, 0, 1.2064499, 0, 0.4514209, 0, -0.8833724, 14.844172, -45, -20.286827)
+
+[node name="Spire21" type="Node3D" parent="Scenery" unique_id=1589338758 instance=ExtResource("13_y07n6")]
+transform = Transform3D(0.62967145, 0, 0.18692134, 0, 1.2428545, 0, -0.18692134, 0, 0.62967145, 31.114511, -45, -18.91486)
+
+[node name="Spire22" type="Node3D" parent="Scenery" unique_id=1180644684 instance=ExtResource("12_l02ep")]
+transform = Transform3D(-0.79478323, 0, 0.6888613, 0, 0.8496871, 0, -0.6888613, 0, -0.79478323, 40.818424, -45, -10.65751)
+
+[node name="Cloud1" type="Node3D" parent="Scenery" unique_id=484517384 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(0.806916, 0, -1.92667, 0, 2.08882, 0, 1.92667, 0, 0.806916, 11.606, -9.10146, 34.3311)
+
+[node name="Cloud2" type="Node3D" parent="Scenery" unique_id=1746127398 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-2.39866, 0, 0.573917, 0, 2.46637, 0, -0.573917, 0, -2.39866, -28.5275, -6.94503, -23.4777)
+
+[node name="Cloud3" type="Node3D" parent="Scenery" unique_id=209068106 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-1.46102, 0, -1.496, 0, 2.09107, 0, 1.496, 0, -1.46102, -67.2947, -9.37382, -10.2998)
+
+[node name="Cloud4" type="Node3D" parent="Scenery" unique_id=295895549 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(0.410934, 0, 1.4959, 0, 1.55131, 0, -1.4959, 0, 0.410934, -61.6684, -7.99851, -24.4034)
+
+[node name="Cloud5" type="Node3D" parent="Scenery" unique_id=1099780543 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(1.84583, 0, -0.153092, 0, 1.85217, 0, 0.153092, 0, 1.84583, 32.4361, -9.90846, 1.11753)
+
+[node name="Cloud6" type="Node3D" parent="Scenery" unique_id=1663307641 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(0.811132, 0, -2.67584, 0, 2.79608, 0, 2.67584, 0, 0.811132, 43.9766, -6.69047, 64.708)
+
+[node name="Cloud7" type="Node3D" parent="Scenery" unique_id=2140455112 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-1.32954, 0, -1.57464, 0, 2.06087, 0, 1.57464, 0, -1.32954, -27.2934, -8.31326, -70.5087)
+
+[node name="Cloud8" type="Node3D" parent="Scenery" unique_id=1221506687 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-2.72301, 0, 0.402501, 0, 2.7526, 0, -0.402501, 0, -2.72301, -61.7547, -9.89418, -31.0287)
+
+[node name="Cloud9" type="Node3D" parent="Scenery" unique_id=164980094 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(2.19988, 0, 1.7573, 0, 2.81559, 0, -1.7573, 0, 2.19988, -26.2945, -9.03985, -10.0987)
+
+[node name="Cloud10" type="Node3D" parent="Scenery" unique_id=393842907 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-2.50763, 0, -0.00708015, 0, 2.50764, 0, 0.00708015, 0, -2.50763, 13.9544, -6.6864, -68.0056)
+
+[node name="Cloud11" type="Node3D" parent="Scenery" unique_id=333688324 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(1.32784, 0, 1.92981, 0, 2.3425, 0, -1.92981, 0, 1.32784, 53.24, -8.06344, 38.864)
+
+[node name="Cloud12" type="Node3D" parent="Scenery" unique_id=99859986 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-0.496289, 0, -1.75333, 0, 1.82221, 0, 1.75333, 0, -0.496289, -6.14381, -8.71477, -67.9516)
+
+[node name="Cloud13" type="Node3D" parent="Scenery" unique_id=904773072 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(0.348216, 0, 2.76511, 0, 2.78695, 0, -2.76511, 0, 0.348216, 25.6661, -9.63922, 11.4622)
+
+[node name="Cloud14" type="Node3D" parent="Scenery" unique_id=738043118 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-2.81356, 0, 0.956321, 0, 2.97164, 0, -0.956321, 0, -2.81356, 63.6967, -7.61229, 24.3041)
+
+[node name="Cloud15" type="Node3D" parent="Scenery" unique_id=353767470 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-0.6856, 0, -2.7571, 0, 2.84106, 0, 2.7571, 0, -0.6856, 28.1703, -9.90018, 14.3715)
+
+[node name="Cloud16" type="Node3D" parent="Scenery" unique_id=372429436 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-2.48628, 0, 0.975782, 0, 2.67091, 0, -0.975782, 0, -2.48628, 28.4106, -6.83997, -56.2138)
+
+[node name="Cloud17" type="Node3D" parent="Scenery" unique_id=2014987283 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-1.78931, 0, -1.58188, 0, 2.3883, 0, 1.58188, 0, -1.78931, 25.5028, -9.22959, -30.9745)
+
+[node name="Cloud18" type="Node3D" parent="Scenery" unique_id=1512535953 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(0.512001, 0, 1.49159, 0, 1.57702, 0, -1.49159, 0, 0.512001, 58.9293, -8.59588, 7.20688)

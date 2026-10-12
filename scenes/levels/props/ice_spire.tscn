@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v5wxu"]
+albedo_color = Color(0.5, 0.68, 0.88, 1)
+roughness = 0.25
+emission_enabled = true
+emission = Color(0.5, 0.75, 1, 1)
+emission_energy_multiplier = 0.08
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_y52ry"]
+top_radius = 0.4
+bottom_radius = 5.0
+height = 50.0
+radial_segments = 6
+rings = 1
+
+[node name="IceSpire" type="Node3D" unique_id=125633304]
+
+[node name="Rock" type="MeshInstance3D" parent="." unique_id=2103722461]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
+material_override = SubResource("StandardMaterial3D_v5wxu")
+mesh = SubResource("CylinderMesh_y52ry")

@@ -1,0 +1,46 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/fx/one_shot_fx.gd" id="1_5k00b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3x2at"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_fcp6v"]
+radius = 0.25
+height = 0.5
+radial_segments = 6
+rings = 3
+
+[sub_resource type="Gradient" id="Gradient_3gjxx"]
+colors = PackedColorArray(0.93, 0.85, 0.7, 0.85, 0.9, 0.82, 0.68, 0)
+
+[node name="DustRing" type="Node3D" unique_id=1195537167]
+script = ExtResource("1_5k00b")
+lifetime = 1.8
+
+[node name="Particles" type="CPUParticles3D" parent="." unique_id=502389646]
+material_override = SubResource("StandardMaterial3D_3x2at")
+cast_shadow = 0
+emitting = false
+amount = 70
+lifetime = 1.4
+one_shot = true
+explosiveness = 0.7
+mesh = SubResource("SphereMesh_fcp6v")
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.1
+emission_ring_radius = 10.0
+emission_ring_inner_radius = 8.4
+emission_ring_cone_angle = 90.0
+direction = Vector3(0, 1, 0)
+spread = 35.0
+gravity = Vector3(0, -1.5, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+scale_amount_min = 0.8
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_3gjxx")

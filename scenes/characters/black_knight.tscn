@@ -1,0 +1,102 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/characters/fighter.gd" id="1_28c6f"]
+[ext_resource type="PackedScene" path="res://assets/characters/gltf/Knight_Dark.glb" id="2_mqmyt"]
+[ext_resource type="PackedScene" path="res://assets/props/sword_2handed_dark.gltf" id="3_j5fog"]
+[ext_resource type="AnimationLibrary" path="res://assets/animations/general.res" id="4_nqgj2"]
+[ext_resource type="AnimationLibrary" path="res://assets/animations/movement.res" id="5_v213p"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pve8n"]
+height = 2.395996
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_odswi"]
+shading_mode = 0
+albedo_color = Color(1, 0.85, 0.2, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_bggxh"]
+inner_radius = 0.62
+outer_radius = 0.78
+rings = 32
+ring_segments = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qhpg3"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_bciud"]
+radius = 0.12
+height = 0.24
+radial_segments = 6
+rings = 3
+
+[sub_resource type="Gradient" id="Gradient_1yi4f"]
+colors = PackedColorArray(0.93, 0.85, 0.7, 0.8, 0.93, 0.85, 0.7, 0)
+
+[node name="KnightDark" type="CharacterBody3D" unique_id=762787047]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_28c6f")
+character_name = "Hắc Kỵ Sĩ"
+description = "Pháo đài di động: nặng nhất, chậm nhất."
+weight = 1.25
+move_speed = 4.2
+dash_cooldown = 1.4
+knockback_force = 10.0
+
+[node name="Visual" type="Node3D" parent="." unique_id=1465084531]
+
+[node name="Model" type="Node3D" parent="Visual" unique_id=1600119474 instance=ExtResource("2_mqmyt")]
+
+[node name="RightHand" type="BoneAttachment3D" parent="Visual" unique_id=1363403648]
+bone_name = "handslot.r"
+bone_idx = 13
+use_external_skeleton = true
+external_skeleton = NodePath("../Model/Rig_Medium/Skeleton3D")
+
+[node name="Prop" type="Node3D" parent="Visual/RightHand" unique_id=1267673397 instance=ExtResource("3_j5fog")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1261615916]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2453613, 0)
+shape = SubResource("CapsuleShape3D_pve8n")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1806843754]
+root_node = NodePath("../Visual/Model")
+libraries/general = ExtResource("4_nqgj2")
+libraries/movement = ExtResource("5_v213p")
+
+[node name="Marker" type="MeshInstance3D" parent="." unique_id=845005487]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 1, 0, 0.04, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_odswi")
+cast_shadow = 0
+mesh = SubResource("TorusMesh_bggxh")
+
+[node name="NameLabel" type="Label3D" parent="." unique_id=98523383]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+pixel_size = 0.01
+billboard = 1
+no_depth_test = true
+render_priority = 10
+outline_render_priority = 9
+text = "Hắc Kỵ Sĩ"
+font_size = 44
+outline_size = 14
+
+[node name="DashDust" type="CPUParticles3D" parent="." unique_id=1056708166]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = SubResource("StandardMaterial3D_qhpg3")
+cast_shadow = 0
+emitting = false
+amount = 16
+lifetime = 0.45
+mesh = SubResource("SphereMesh_bciud")
+direction = Vector3(0, 1, 0)
+spread = 60.0
+gravity = Vector3(0, 0.5, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.5
+scale_amount_min = 0.6
+scale_amount_max = 1.4
+color_ramp = SubResource("Gradient_1yi4f")

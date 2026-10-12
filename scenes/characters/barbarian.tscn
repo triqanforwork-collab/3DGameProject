@@ -1,0 +1,109 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/characters/fighter.gd" id="1_gd1b6"]
+[ext_resource type="PackedScene" path="res://assets/characters/gltf/Barbarian.glb" id="2_wlicx"]
+[ext_resource type="PackedScene" path="res://assets/props/axe_1handed.gltf" id="3_ui44e"]
+[ext_resource type="PackedScene" path="res://assets/props/shield_round_barbarian.gltf" id="4_ho44x"]
+[ext_resource type="AnimationLibrary" path="res://assets/animations/general.res" id="5_d3gd7"]
+[ext_resource type="AnimationLibrary" path="res://assets/animations/movement.res" id="6_thded"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8bjua"]
+height = 2.395996
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exo6i"]
+shading_mode = 0
+albedo_color = Color(1, 0.85, 0.2, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_fflld"]
+inner_radius = 0.62
+outer_radius = 0.78
+rings = 32
+ring_segments = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xi1as"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_ugyxj"]
+radius = 0.12
+height = 0.24
+radial_segments = 6
+rings = 3
+
+[sub_resource type="Gradient" id="Gradient_c1061"]
+colors = PackedColorArray(0.93, 0.85, 0.7, 0.8, 0.93, 0.85, 0.7, 0)
+
+[node name="Barbarian" type="CharacterBody3D" unique_id=941404285]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_gd1b6")
+character_name = "Barbarian"
+description = "Chiến binh phương Bắc. Cú lao mạnh, khá chắc chân."
+weight = 1.1
+knockback_force = 10.0
+
+[node name="Visual" type="Node3D" parent="." unique_id=1949746431]
+
+[node name="Model" type="Node3D" parent="Visual" unique_id=324222372 instance=ExtResource("2_wlicx")]
+
+[node name="RightHand" type="BoneAttachment3D" parent="Visual" unique_id=994793559]
+bone_name = "handslot.r"
+bone_idx = 14
+use_external_skeleton = true
+external_skeleton = NodePath("../Model/Rig_Medium/Skeleton3D")
+
+[node name="Prop" type="Node3D" parent="Visual/RightHand" unique_id=155900631 instance=ExtResource("3_ui44e")]
+
+[node name="LeftHand" type="BoneAttachment3D" parent="Visual" unique_id=806055250]
+bone_name = "handslot.l"
+bone_idx = 8
+use_external_skeleton = true
+external_skeleton = NodePath("../Model/Rig_Medium/Skeleton3D")
+
+[node name="Prop" type="Node3D" parent="Visual/LeftHand" unique_id=1091877529 instance=ExtResource("4_ho44x")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1360653171]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2453613, 0)
+shape = SubResource("CapsuleShape3D_8bjua")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1828454825]
+root_node = NodePath("../Visual/Model")
+libraries/general = ExtResource("5_d3gd7")
+libraries/movement = ExtResource("6_thded")
+
+[node name="Marker" type="MeshInstance3D" parent="." unique_id=1151442016]
+transform = Transform3D(1, 0, 0, 0, 0.2, 0, 0, 0, 1, 0, 0.04, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_exo6i")
+cast_shadow = 0
+mesh = SubResource("TorusMesh_fflld")
+
+[node name="NameLabel" type="Label3D" parent="." unique_id=1085082385]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+pixel_size = 0.01
+billboard = 1
+no_depth_test = true
+render_priority = 10
+outline_render_priority = 9
+text = "Barbarian"
+font_size = 44
+outline_size = 14
+
+[node name="DashDust" type="CPUParticles3D" parent="." unique_id=1543125821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = SubResource("StandardMaterial3D_xi1as")
+cast_shadow = 0
+emitting = false
+amount = 16
+lifetime = 0.45
+mesh = SubResource("SphereMesh_ugyxj")
+direction = Vector3(0, 1, 0)
+spread = 60.0
+gravity = Vector3(0, 0.5, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.5
+scale_amount_min = 0.6
+scale_amount_max = 1.4
+color_ramp = SubResource("Gradient_c1061")

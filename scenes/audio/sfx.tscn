@@ -1,0 +1,82 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/audio/sfx.gd" id="1_35llp"]
+[ext_resource type="AudioStream" path="res://assets/audio/music/goblins_den.wav" id="2_13ujk"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/dash.wav" id="2_35llp"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/hit.wav" id="3_smer3"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/fall.wav" id="4_v0c70"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/warn.wav" id="5_yr6ok"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/drop.wav" id="6_ks4rd"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/count.wav" id="7_g8o4q"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/go.wav" id="8_jqdul"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/click.wav" id="9_m1o4d"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/win.wav" id="10_8don7"]
+[ext_resource type="AudioStream" path="res://assets/audio/sfx/lose.wav" id="11_uvhc2"]
+
+[node name="Sfx" type="Node" unique_id=380829701]
+script = ExtResource("1_35llp")
+
+[node name="dash" type="AudioStreamPlayer" parent="." unique_id=663251846]
+stream = ExtResource("2_35llp")
+volume_db = -6.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="hit" type="AudioStreamPlayer" parent="." unique_id=1803797396]
+stream = ExtResource("3_smer3")
+volume_db = -6.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="fall" type="AudioStreamPlayer" parent="." unique_id=1665603537]
+stream = ExtResource("4_v0c70")
+volume_db = -6.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="warn" type="AudioStreamPlayer" parent="." unique_id=587827369]
+stream = ExtResource("5_yr6ok")
+volume_db = -6.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="drop" type="AudioStreamPlayer" parent="." unique_id=54989574]
+stream = ExtResource("6_ks4rd")
+volume_db = -6.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="count" type="AudioStreamPlayer" parent="." unique_id=343167559]
+stream = ExtResource("7_g8o4q")
+volume_db = -6.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="go" type="AudioStreamPlayer" parent="." unique_id=883354787]
+stream = ExtResource("8_jqdul")
+volume_db = -6.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="click" type="AudioStreamPlayer" parent="." unique_id=118007774]
+stream = ExtResource("9_m1o4d")
+volume_db = -6.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="win" type="AudioStreamPlayer" parent="." unique_id=1341422359]
+stream = ExtResource("10_8don7")
+volume_db = -6.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="lose" type="AudioStreamPlayer" parent="." unique_id=1531308316]
+stream = ExtResource("11_uvhc2")
+volume_db = -6.0
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1748026995]
+stream = ExtResource("2_13ujk")
+volume_db = -14.0
+bus = &"Music"

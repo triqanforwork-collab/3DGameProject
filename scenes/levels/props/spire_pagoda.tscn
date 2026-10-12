@@ -1,0 +1,64 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rfedv"]
+albedo_color = Color(0.5, 0.48, 0.5, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_n85h0"]
+bottom_radius = 5.0
+height = 50.0
+radial_segments = 6
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5ohg"]
+albedo_color = Color(0.75, 0.25, 0.2, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_leq0q"]
+top_radius = 0.05
+bottom_radius = 1.6
+height = 0.5
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_vpeuv"]
+top_radius = 0.05
+bottom_radius = 1.4
+height = 0.5
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7hxko"]
+top_radius = 0.05
+bottom_radius = 1.2
+height = 0.5
+radial_segments = 6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2i55y"]
+top_radius = 0.05
+bottom_radius = 1.0
+height = 0.5
+radial_segments = 6
+
+[node name="SpirePagoda" type="Node3D" unique_id=426830063]
+
+[node name="Rock" type="MeshInstance3D" parent="." unique_id=813400320]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
+material_override = SubResource("StandardMaterial3D_rfedv")
+mesh = SubResource("CylinderMesh_n85h0")
+
+[node name="Roof0" type="MeshInstance3D" parent="." unique_id=1047310832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 42, 0)
+material_override = SubResource("StandardMaterial3D_s5ohg")
+mesh = SubResource("CylinderMesh_leq0q")
+
+[node name="Roof1" type="MeshInstance3D" parent="." unique_id=898117593]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 44.2, 0)
+material_override = SubResource("StandardMaterial3D_s5ohg")
+mesh = SubResource("CylinderMesh_vpeuv")
+
+[node name="Roof2" type="MeshInstance3D" parent="." unique_id=626434589]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 46.4, 0)
+material_override = SubResource("StandardMaterial3D_s5ohg")
+mesh = SubResource("CylinderMesh_7hxko")
+
+[node name="Roof3" type="MeshInstance3D" parent="." unique_id=1148517758]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 48.6, 0)
+material_override = SubResource("StandardMaterial3D_s5ohg")
+mesh = SubResource("CylinderMesh_2i55y")
