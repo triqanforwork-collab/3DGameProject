@@ -1,9 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cbaxs1v16r7uy"]
 
-[ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_h3ghl"]
-[ext_resource type="Script" path="res://scenes/levels/arena.gd" id="1_nsr5s"]
+[ext_resource type="Script" uid="uid://b3ysrv8evc5c5" path="res://scenes/levels/level.gd" id="1_h3ghl"]
+[ext_resource type="Script" uid="uid://chwxwp52ftcn3" path="res://scenes/levels/arena.gd" id="1_nsr5s"]
 [ext_resource type="ArrayMesh" path="res://assets/arena/sky_arena/center_mesh.res" id="2_h3ghl"]
-[ext_resource type="AudioStream" path="res://assets/audio/music/stage1_workshop_breadboard.ogg" id="2_vgl6n"]
+[ext_resource type="AudioStream" uid="uid://d2o8kuqdq6jok" path="res://assets/audio/music/stage1_workshop_breadboard.ogg" id="2_vgl6n"]
 [ext_resource type="Shape3D" path="res://assets/arena/sky_arena/center_shape.res" id="3_vgl6n"]
 [ext_resource type="ArrayMesh" path="res://assets/arena/sky_arena/ring0_mesh.res" id="4_6t8u3"]
 [ext_resource type="Shape3D" path="res://assets/arena/sky_arena/ring0_shape.res" id="5_4ke3l"]
@@ -13,15 +13,17 @@
 [ext_resource type="Shape3D" path="res://assets/arena/sky_arena/ring2_shape.res" id="9_l0u4a"]
 [ext_resource type="ArrayMesh" path="res://assets/arena/sky_arena/ring3_mesh.res" id="10_pbpit"]
 [ext_resource type="Shape3D" path="res://assets/arena/sky_arena/ring3_shape.res" id="11_uxmr3"]
-[ext_resource type="PackedScene" path="res://scenes/levels/props/spire_pagoda.tscn" id="12_l02ep"]
+[ext_resource type="PackedScene" path="res://scenes/levels/props/spire_alt.tscn" id="12_l02ep"]
 [ext_resource type="PackedScene" path="res://scenes/levels/props/spire.tscn" id="13_y07n6"]
 [ext_resource type="PackedScene" path="res://scenes/levels/props/cloud.tscn" id="14_mkvcu"]
+[ext_resource type="Material" path="res://assets/shaders/cloud_sea.tres" id="15_cloud"]
+[ext_resource type="PackedScene" path="res://scenes/levels/hazards/wind_gusts.tscn" id="16_wind"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vwtbx"]
-sky_top_color = Color(0.42, 0.55, 0.7, 1)
-sky_horizon_color = Color(0.86, 0.8, 0.72, 1)
-ground_bottom_color = Color(0.8, 0.76, 0.7, 1)
-ground_horizon_color = Color(0.86, 0.8, 0.72, 1)
+sky_top_color = Color(0.28, 0.5, 0.82, 1)
+sky_horizon_color = Color(0.78, 0.85, 0.93, 1)
+ground_bottom_color = Color(0.7, 0.77, 0.88, 1)
+ground_horizon_color = Color(0.78, 0.85, 0.93, 1)
 
 [sub_resource type="Sky" id="Sky_r4qpl"]
 sky_material = SubResource("ProceduralSkyMaterial_vwtbx")
@@ -33,8 +35,8 @@ ambient_light_source = 3
 ambient_light_energy = 0.45
 tonemap_mode = 2
 fog_enabled = true
-fog_light_color = Color(0.86, 0.81, 0.74, 1)
-fog_density = 0.004
+fog_light_color = Color(0.8, 0.86, 0.93, 1)
+fog_density = 0.0025
 fog_sky_affect = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yi5uh"]
@@ -105,14 +107,14 @@ outer_radius = 5.225
 rings = 48
 ring_segments = 6
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_61v0i"]
-albedo_color = Color(0.74, 0.72, 0.7, 1)
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_bx5x6"]
 size = Vector2(400, 400)
+subdivide_width = 100
+subdivide_depth = 100
 
 [node name="SkyArena" type="Node3D" unique_id=1610489219]
 script = ExtResource("1_h3ghl")
+stage_hint = "Gió giật từng đợt — trụ vững, hoặc mượn gió đẩy đối thủ!"
 music = ExtResource("2_vgl6n")
 bot_think_interval = 0.35
 bot_reaction_time = 0.45
@@ -254,126 +256,98 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 
 [node name="CloudSea" type="MeshInstance3D" parent="Scenery" unique_id=1786258397]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
-material_override = SubResource("StandardMaterial3D_61v0i")
+material_override = ExtResource("15_cloud")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_bx5x6")
 
-[node name="Spire1" type="Node3D" parent="Scenery" unique_id=426830063 instance=ExtResource("12_l02ep")]
-transform = Transform3D(-0.5935719, 0, -1.0889932, 0, 1.3042256, 0, 1.0889932, 0, -0.5935719, 45.912968, -45, -0.7548004)
+[node name="Spire1" parent="Scenery" unique_id=727447302 instance=ExtResource("13_y07n6")]
+transform = Transform3D(-1.16157, 0, 0.05727, 0, 1.16298, 0, -0.05727, 0, -1.16157, -33.77, -45, 10.186)
 
-[node name="Spire2" type="Node3D" parent="Scenery" unique_id=1785926106 instance=ExtResource("13_y07n6")]
-transform = Transform3D(0.58990806, 0, -0.68714046, 0, 0.91002274, 0, 0.68714046, 0, 0.58990806, 23.97015, -45, 8.667391)
+[node name="Spire2" parent="Scenery" unique_id=294963575 instance=ExtResource("12_l02ep")]
+transform = Transform3D(-0.80783, 0, 0.85898, 0, 1.17917, 0, -0.85898, 0, -0.80783, -32.157, -45, -7.649)
 
-[node name="Spire3" type="Node3D" parent="Scenery" unique_id=749664381 instance=ExtResource("13_y07n6")]
-transform = Transform3D(-0.8976632, 0, -0.48771602, 0, 1.0452296, 0, 0.48771602, 0, -0.8976632, 31.72112, -45, 15.75501)
+[node name="Spire3" parent="Scenery" unique_id=418938718 instance=ExtResource("13_y07n6")]
+transform = Transform3D(0.93148, 0, -0.59666, 0, 1.10619, 0, 0.59666, 0, 0.93148, -23.336, -45, -23.024)
 
-[node name="Spire4" type="Node3D" parent="Scenery" unique_id=550288516 instance=ExtResource("12_l02ep")]
-transform = Transform3D(-0.7651064, 0, -0.69522905, 0, 1.3364158, 0, 0.69522905, 0, -0.7651064, 23.489244, -45, 31.918007)
+[node name="Spire4" parent="Scenery" unique_id=296001770 instance=ExtResource("12_l02ep")]
+transform = Transform3D(1.00831, 0, 0.11329, 0, 1.01466, 0, -0.11329, 0, 1.00831, -9.116, -45, -33.357)
 
-[node name="Spire5" type="Node3D" parent="Scenery" unique_id=704295901 instance=ExtResource("13_y07n6")]
-transform = Transform3D(-0.6117999, 0, 1.2117125, 0, 1.178816, 0, -1.2117125, 0, -0.6117999, 15.675873, -45, 32.255737)
+[node name="Spire5" parent="Scenery" unique_id=1935136924 instance=ExtResource("13_y07n6")]
+transform = Transform3D(0.66735, 0, -1.01585, 0, 1.21545, 0, 1.01585, 0, 0.66735, 9.294, -45, -33.185)
 
-[node name="Spire6" type="Node3D" parent="Scenery" unique_id=799840000 instance=ExtResource("13_y07n6")]
-transform = Transform3D(0.6020587, 0, -0.31954524, 0, 1.144596, 0, 0.31954524, 0, 0.6020587, 1.6796799, -45, 24.717634)
+[node name="Spire6" parent="Scenery" unique_id=7938061 instance=ExtResource("12_l02ep")]
+transform = Transform3D(0.37455, 0, -0.94965, 0, 1.02084, 0, 0.94965, 0, 0.37455, 21.885, -45, -26.131)
 
-[node name="Spire7" type="Node3D" parent="Scenery" unique_id=200481844 instance=ExtResource("12_l02ep")]
-transform = Transform3D(0.9768268, 0, 0.09836657, 0, 0.8484535, 0, -0.09836657, 0, 0.9768268, -4.237753, -45, 42.035515)
+[node name="Spire7" parent="Scenery" unique_id=389186864 instance=ExtResource("13_y07n6")]
+transform = Transform3D(-1.08217, 0, -0.42429, 0, 1.16238, 0, 0.42429, 0, -1.08217, 30.871, -45, -10.444)
 
-[node name="Spire8" type="Node3D" parent="Scenery" unique_id=1358677083 instance=ExtResource("13_y07n6")]
-transform = Transform3D(-0.3008641, 0, 0.79977, 0, 0.82504296, 0, -0.79977, 0, -0.3008641, -18.736526, -45, 45.3664)
+[node name="Spire8" parent="Scenery" unique_id=1970351115 instance=ExtResource("12_l02ep")]
+transform = Transform3D(-1.2241, 0, -0.00174, 0, 1.2241, 0, 0.00174, 0, -1.2241, 32.911, -45, 8.764)
 
-[node name="Spire9" type="Node3D" parent="Scenery" unique_id=2081516718 instance=ExtResource("13_y07n6")]
-transform = Transform3D(0.51322216, 0, 0.5845906, 0, 1.340622, 0, -0.5845906, 0, 0.51322216, -23.1972, -45, 30.79801)
+[node name="Spire9" parent="Scenery" unique_id=1983127233 instance=ExtResource("13_y07n6")]
+transform = Transform3D(1.09724, 0, 0.01616, 0, 1.09736, 0, -0.01616, 0, 1.09724, 24.435, -45, 23.458)
 
-[node name="Spire10" type="Node3D" parent="Scenery" unique_id=1059436465 instance=ExtResource("12_l02ep")]
-transform = Transform3D(0.69850916, 0, 0.48880547, 0, 0.9836412, 0, -0.48880547, 0, 0.69850916, -42.638954, -45, 32.622154)
+[node name="Spire10" parent="Scenery" unique_id=1821422821 instance=ExtResource("12_l02ep")]
+transform = Transform3D(-0.49753, 0, -1.14425, 0, 1.24773, 0, 1.14425, 0, -0.49753, 8.573, -45, 33.955)
 
-[node name="Spire11" type="Node3D" parent="Scenery" unique_id=714432934 instance=ExtResource("13_y07n6")]
-transform = Transform3D(0.6968383, 0, -0.004394651, 0, 0.8701279, 0, 0.004394651, 0, 0.6968383, -47.290054, -45, 19.598623)
+[node name="Spire11" parent="Scenery" unique_id=1935489874 instance=ExtResource("13_y07n6")]
+transform = Transform3D(0.10467, 0, 1.01922, 0, 1.02458, 0, -1.01922, 0, 0.10467, -6.501, -45, 32.728)
 
-[node name="Spire12" type="Node3D" parent="Scenery" unique_id=1197179794 instance=ExtResource("13_y07n6")]
-transform = Transform3D(1.0565829, 0, 0.50885606, 0, 1.1929933, 0, -0.50885606, 0, 1.0565829, -51.71211, -45, -2.6948786)
+[node name="Spire12" parent="Scenery" unique_id=1015142442 instance=ExtResource("12_l02ep")]
+transform = Transform3D(1.09606, 0, 0.29584, 0, 1.13528, 0, -0.29584, 0, 1.09606, -23.564, -45, 25.933)
 
-[node name="Spire13" type="Node3D" parent="Scenery" unique_id=720265138 instance=ExtResource("12_l02ep")]
-transform = Transform3D(0.33277267, 0, -1.213535, 0, 1.0053171, 0, 1.213535, 0, 0.33277267, -34.48353, -45, -9.22535)
+[node name="Cloud1" parent="Scenery" unique_id=484517384 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(0.80692, 0, -1.92667, 0, 2.08882, 0, 1.92667, 0, 0.80692, 16.49509, -9.10146, 63.77382)
 
-[node name="Spire14" type="Node3D" parent="Scenery" unique_id=902442512 instance=ExtResource("13_y07n6")]
-transform = Transform3D(-0.6154998, 0, 1.0183511, 0, 1.0777221, 0, -1.0183511, 0, -0.6154998, -25.946249, -45, -14.110248)
+[node name="Cloud2" parent="Scenery" unique_id=1746127398 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-2.39866, 0, 0.57392, 0, 2.46637, 0, -0.57392, 0, -2.39866, -67.87159, -6.94503, 12.95282)
 
-[node name="Spire15" type="Node3D" parent="Scenery" unique_id=1901637308 instance=ExtResource("13_y07n6")]
-transform = Transform3D(-1.2317522, 0, 0.019320142, 0, 1.0397638, 0, -0.019320142, 0, -1.2317522, -32.02003, -45, -41.7638)
+[node name="Cloud3" parent="Scenery" unique_id=209068106 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-1.46102, 0, -1.496, 0, 2.09107, 0, 1.496, 0, -1.46102, -41.09288, -9.37382, -43.46022)
 
-[node name="Spire16" type="Node3D" parent="Scenery" unique_id=1812481143 instance=ExtResource("12_l02ep")]
-transform = Transform3D(0.7217881, 0, 0.5288941, 0, 0.91759294, 0, -0.5288941, 0, 0.7217881, -13.195991, -45, -22.225018)
+[node name="Cloud4" parent="Scenery" unique_id=295895549 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(0.41093, 0, 1.4959, 0, 1.55131, 0, -1.4959, 0, 0.41093, -33.8953, -7.99851, 59.35057)
 
-[node name="Spire17" type="Node3D" parent="Scenery" unique_id=395257136 instance=ExtResource("13_y07n6")]
-transform = Transform3D(1.2551045, 0, -0.40170172, 0, 1.2463661, 0, 0.40170172, 0, 1.2551045, -1.6049453, -45, -42.536285)
+[node name="Cloud5" parent="Scenery" unique_id=1099780543 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(1.84583, 0, -0.15309, 0, 1.85217, 0, 0.15309, 0, 1.84583, 56.41797, -9.90846, 22.29375)
 
-[node name="Spire18" type="Node3D" parent="Scenery" unique_id=1756316362 instance=ExtResource("13_y07n6")]
-transform = Transform3D(-1.1326689, 0, 0.39909545, 0, 0.9699127, 0, -0.39909545, 0, -1.1326689, 8.966619, -45, -36.19265)
+[node name="Cloud6" parent="Scenery" unique_id=1663307641 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(0.81113, 0, -2.67584, 0, 2.79608, 0, 2.67584, 0, 0.81113, 21.82711, -6.69047, 44.68119)
 
-[node name="Spire19" type="Node3D" parent="Scenery" unique_id=484442531 instance=ExtResource("12_l02ep")]
-transform = Transform3D(-0.737709, 0, 0.4643751, 0, 0.99499375, 0, -0.4643751, 0, -0.737709, 26.617434, -45, -45.617912)
+[node name="Cloud7" parent="Scenery" unique_id=2140455112 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-1.32954, 0, -1.57464, 0, 2.06087, 0, 1.57464, 0, -1.32954, -8.51796, -8.31326, 68.13234)
 
-[node name="Spire20" type="Node3D" parent="Scenery" unique_id=1828293815 instance=ExtResource("13_y07n6")]
-transform = Transform3D(-0.8833724, 0, -0.4514209, 0, 1.2064499, 0, 0.4514209, 0, -0.8833724, 14.844172, -45, -20.286827)
+[node name="Cloud8" parent="Scenery" unique_id=1221506687 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-2.72301, 0, 0.4025, 0, 2.7526, 0, -0.4025, 0, -2.72301, -49.84053, -9.89418, 39.02539)
 
-[node name="Spire21" type="Node3D" parent="Scenery" unique_id=1589338758 instance=ExtResource("13_y07n6")]
-transform = Transform3D(0.62967145, 0, 0.18692134, 0, 1.2428545, 0, -0.18692134, 0, 0.62967145, 31.114511, -45, -18.91486)
+[node name="Cloud9" parent="Scenery" unique_id=164980094 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(2.19988, 0, 1.7573, 0, 2.81559, 0, -1.7573, 0, 2.19988, -50.16682, -9.03985, 5.14811)
 
-[node name="Spire22" type="Node3D" parent="Scenery" unique_id=1180644684 instance=ExtResource("12_l02ep")]
-transform = Transform3D(-0.79478323, 0, 0.6888613, 0, 0.8496871, 0, -0.6888613, 0, -0.79478323, 40.818424, -45, -10.65751)
+[node name="Cloud10" parent="Scenery" unique_id=393842907 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-2.50763, 0, -0.00708, 0, 2.50764, 0, 0.00708, 0, -2.50763, 37.27312, -6.6864, 54.20985)
 
-[node name="Cloud1" type="Node3D" parent="Scenery" unique_id=484517384 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(0.806916, 0, -1.92667, 0, 2.08882, 0, 1.92667, 0, 0.806916, 11.606, -9.10146, 34.3311)
+[node name="Cloud11" parent="Scenery" unique_id=333688324 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(1.32784, 0, 1.92981, 0, 2.3425, 0, -1.92981, 0, 1.32784, 61.43694, -8.06344, -19.90411)
 
-[node name="Cloud2" type="Node3D" parent="Scenery" unique_id=1746127398 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(-2.39866, 0, 0.573917, 0, 2.46637, 0, -0.573917, 0, -2.39866, -28.5275, -6.94503, -23.4777)
+[node name="Cloud12" parent="Scenery" unique_id=99859986 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-0.49629, 0, -1.75333, 0, 1.82221, 0, 1.75333, 0, -0.49629, -34.52593, -8.71477, -26.27536)
 
-[node name="Cloud3" type="Node3D" parent="Scenery" unique_id=209068106 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(-1.46102, 0, -1.496, 0, 2.09107, 0, 1.496, 0, -1.46102, -67.2947, -9.37382, -10.2998)
+[node name="Cloud13" parent="Scenery" unique_id=904773072 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(0.34822, 0, 2.76511, 0, 2.78695, 0, -2.76511, 0, 0.34822, 22.98214, -9.63922, -46.01774)
 
-[node name="Cloud4" type="Node3D" parent="Scenery" unique_id=295895549 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(0.410934, 0, 1.4959, 0, 1.55131, 0, -1.4959, 0, 0.410934, -61.6684, -7.99851, -24.4034)
+[node name="Cloud14" parent="Scenery" unique_id=738043118 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-2.81356, 0, 0.95632, 0, 2.97164, 0, -0.95632, 0, -2.81356, 53.50383, -7.61229, -43.7324)
 
-[node name="Cloud5" type="Node3D" parent="Scenery" unique_id=1099780543 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(1.84583, 0, -0.153092, 0, 1.85217, 0, 0.153092, 0, 1.84583, 32.4361, -9.90846, 1.11753)
+[node name="Cloud15" parent="Scenery" unique_id=353767470 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-0.6856, 0, -2.7571, 0, 2.84106, 0, 2.7571, 0, -0.6856, -55.49067, -9.90018, -16.53651)
 
-[node name="Cloud6" type="Node3D" parent="Scenery" unique_id=1663307641 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(0.811132, 0, -2.67584, 0, 2.79608, 0, 2.67584, 0, 0.811132, 43.9766, -6.69047, 64.708)
+[node name="Cloud16" parent="Scenery" unique_id=372429436 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-2.48628, 0, 0.97578, 0, 2.67091, 0, -0.97578, 0, -2.48628, -17.35357, -6.83997, -57.94762)
 
-[node name="Cloud7" type="Node3D" parent="Scenery" unique_id=2140455112 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(-1.32954, 0, -1.57464, 0, 2.06087, 0, 1.57464, 0, -1.32954, -27.2934, -8.31326, -70.5087)
+[node name="Cloud17" parent="Scenery" unique_id=2014987283 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(-1.78931, 0, -1.58188, 0, 2.3883, 0, 1.58188, 0, -1.78931, 16.05267, -9.22959, -61.66456)
 
-[node name="Cloud8" type="Node3D" parent="Scenery" unique_id=1221506687 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(-2.72301, 0, 0.402501, 0, 2.7526, 0, -0.402501, 0, -2.72301, -61.7547, -9.89418, -31.0287)
+[node name="Cloud18" parent="Scenery" unique_id=1512535953 instance=ExtResource("14_mkvcu")]
+transform = Transform3D(0.512, 0, 1.49159, 0, 1.57702, 0, -1.49159, 0, 0.512, -37.53986, -8.59588, 34.23049)
 
-[node name="Cloud9" type="Node3D" parent="Scenery" unique_id=164980094 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(2.19988, 0, 1.7573, 0, 2.81559, 0, -1.7573, 0, 2.19988, -26.2945, -9.03985, -10.0987)
-
-[node name="Cloud10" type="Node3D" parent="Scenery" unique_id=393842907 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(-2.50763, 0, -0.00708015, 0, 2.50764, 0, 0.00708015, 0, -2.50763, 13.9544, -6.6864, -68.0056)
-
-[node name="Cloud11" type="Node3D" parent="Scenery" unique_id=333688324 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(1.32784, 0, 1.92981, 0, 2.3425, 0, -1.92981, 0, 1.32784, 53.24, -8.06344, 38.864)
-
-[node name="Cloud12" type="Node3D" parent="Scenery" unique_id=99859986 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(-0.496289, 0, -1.75333, 0, 1.82221, 0, 1.75333, 0, -0.496289, -6.14381, -8.71477, -67.9516)
-
-[node name="Cloud13" type="Node3D" parent="Scenery" unique_id=904773072 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(0.348216, 0, 2.76511, 0, 2.78695, 0, -2.76511, 0, 0.348216, 25.6661, -9.63922, 11.4622)
-
-[node name="Cloud14" type="Node3D" parent="Scenery" unique_id=738043118 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(-2.81356, 0, 0.956321, 0, 2.97164, 0, -0.956321, 0, -2.81356, 63.6967, -7.61229, 24.3041)
-
-[node name="Cloud15" type="Node3D" parent="Scenery" unique_id=353767470 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(-0.6856, 0, -2.7571, 0, 2.84106, 0, 2.7571, 0, -0.6856, 28.1703, -9.90018, 14.3715)
-
-[node name="Cloud16" type="Node3D" parent="Scenery" unique_id=372429436 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(-2.48628, 0, 0.975782, 0, 2.67091, 0, -0.975782, 0, -2.48628, 28.4106, -6.83997, -56.2138)
-
-[node name="Cloud17" type="Node3D" parent="Scenery" unique_id=2014987283 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(-1.78931, 0, -1.58188, 0, 2.3883, 0, 1.58188, 0, -1.78931, 25.5028, -9.22959, -30.9745)
-
-[node name="Cloud18" type="Node3D" parent="Scenery" unique_id=1512535953 instance=ExtResource("14_mkvcu")]
-transform = Transform3D(0.512001, 0, 1.49159, 0, 1.57702, 0, -1.49159, 0, 0.512001, 58.9293, -8.59588, 7.20688)
+[node name="WindGusts" parent="." unique_id=1822898625 instance=ExtResource("16_wind")]

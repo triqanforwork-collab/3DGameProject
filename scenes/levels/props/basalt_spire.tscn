@@ -1,19 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://chunc2u7jv4q"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klt4g"]
-albedo_color = Color(0.17, 0.15, 0.15, 1)
-roughness = 0.9
+[ext_resource type="PackedScene" uid="uid://c6p1apx84l30k" path="res://assets/environment/forest/Rock_1_N_Color1.gltf" id="1_rock_1_n"]
+[ext_resource type="Material" path="res://assets/shaders/lava_rock.tres" id="m_mat"]
+[ext_resource type="Script" uid="uid://cs2xl5v4qumu1" path="res://scenes/levels/props/prop_material.gd" id="s_mat"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_pv5ct"]
-top_radius = 0.4
-bottom_radius = 5.0
-height = 50.0
-radial_segments = 6
-rings = 1
+[node name="BasaltSpire" type="Node3D" unique_id=658691588]
+script = ExtResource("s_mat")
+material = ExtResource("m_mat")
 
-[node name="BasaltSpire" type="Node3D" unique_id=1228779884]
-
-[node name="Rock" type="MeshInstance3D" parent="." unique_id=1215765061]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
-material_override = SubResource("StandardMaterial3D_klt4g")
-mesh = SubResource("CylinderMesh_pv5ct")
+[node name="Rock0" parent="." unique_id=1470476807 instance=ExtResource("1_rock_1_n")]
+transform = Transform3D(3.2, 0, 0, 0, 3.2, 0, 0, 0, 3.2, 0, 26, 0)

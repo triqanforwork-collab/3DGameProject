@@ -1,7 +1,7 @@
 class_name BotBrain
 extends Node
 ## AI đơn giản cho bot: chọn mục tiêu, áp sát từ phía trong sàn, lao khi đủ gần,
-## tránh mép và chạy về vùng an toàn khi sàn sắp thu hẹp.
+## né cơ chế của màn (nhóm "hazards"), tránh mép và chạy về vùng an toàn khi sàn sắp thu hẹp.
 ## Quyết định được cập nhật theo chu kỳ think_interval, không phải mỗi frame.
 
 @export var think_interval: float = 0.3
@@ -78,6 +78,10 @@ func _think() -> void:
 			if landing.length() < safe_radius - 0.6 or randf() < 0.03:
 				_pending_dash_dir = aim
 				_pending_dash_left = reaction_time * randf_range(0.7, 1.3)
+
+	# Cơ chế của màn (gió, dung nham) tự cho biết nên né về đâu.
+	for h in fighter.get_tree().get_nodes_in_group(&"hazards"):
+		desired += h.bot_steer(pos)
 
 	# Tránh mép: càng gần/ra ngoài vùng an toàn càng kéo mạnh về tâm.
 	var dist_center := pos.length()

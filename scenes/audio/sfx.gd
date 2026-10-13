@@ -14,12 +14,13 @@ func _ready() -> void:
 	GameSettings.apply_audio()
 
 
-func play(sound: StringName, pitch_jitter: float = 0.08) -> void:
+## pitch < 1 = trầm hơn: dùng lại một file cho âm khác (vd. tiếng lao trầm làm tiếng gió).
+func play(sound: StringName, pitch_jitter: float = 0.08, pitch: float = 1.0) -> void:
 	var p := get_node_or_null(NodePath(sound)) as AudioStreamPlayer
 	if p == null:
 		push_warning("Không có âm thanh '%s' trong sfx.tscn" % sound)
 		return
-	p.pitch_scale = 1.0 + randf_range(-pitch_jitter, pitch_jitter)
+	p.pitch_scale = pitch + randf_range(-pitch_jitter, pitch_jitter)
 	p.play()
 
 

@@ -616,7 +616,10 @@ text = "[b]Mục tiêu:[/b] đẩy mọi đối thủ rơi khỏi đấu trườ
 • Vòng ngoài của sàn nhấp nháy đỏ rồi rơi xuống theo thời gian — hãy vào giữa!
 • Đẩy được đối thủ ra ngoài sẽ được +1 điểm ĐẨY RA.
 
-[b]3 màn liên tục:[/b] Đấu Trường Mây (7 bot) → Đỉnh Băng (9 bot) → Miệng Núi Lửa (11 bot, mỗi bot hồi sinh 1 lần, rơi từ trên trời xuống chỗ có vòng đỏ). Luôn bắt đầu từ màn 1; thua thì thử lại màn đó, đồng hồ vẫn chạy.
+[b]3 màn liên tục, mỗi màn một cơ chế:[/b]
+• Đấu Trường Mây (7 bot): gió giật từng đợt đẩy mọi người theo một hướng — có vệt gió báo trước.
+• Đỉnh Băng (9 bot): sàn băng trơn — khó dừng, bị đẩy là trượt rất xa.
+• Miệng Núi Lửa (11 bot): dung nham phun ở vòng đỏ, hất văng ai đứng gần; mỗi bot hồi sinh 1 lần, rơi từ trên trời xuống. Luôn bắt đầu từ màn 1; thua thì thử lại màn đó, đồng hồ vẫn chạy.
 [b]Kỷ lục:[/b] phá đảo cả 3 màn để ghi tổng thời gian vào bảng Kỷ lục.
 [b]Camera sau lưng:[/b] bật trong menu Tạm dừng. Di chuột / kéo nửa phải màn hình để xoay; đứng yên mà lao thì lao theo tâm ngắm.
 
@@ -626,7 +629,8 @@ DOOM DOOM — đồ án game 3D, Godot Engine 4.7. Lấy cảm hứng từ Sumo 
 • Nhạc các màn: Workshop, The Walking Dunes, Alley Cat — Abstraction (abstractionmusic.com, tallbeard.itch.io/music-loop-bundle), CC0.
 • Nhạc menu: Goblins Den — Minifantasy Dungeon Music, Leohpaz.
 • Hiệu ứng âm thanh: tự tổng hợp (sóng âm đơn giản), lưu thành file WAV.
-• Sàn đấu, khung cảnh, VFX: hình học & material tự dựng trong Godot.
+• Cột đá khung cảnh: KayKit Forest Nature Pack 1.0 (FREE) — Kay Lousberg, CC0.
+• Sàn đấu, VFX, shader (dung nham, băng, biển mây): tự dựng trong Godot.
 • Engine: Godot Engine (MIT) — godotengine.org"
 
 [node name="GuideBackButton" type="Button" parent="Menu/Margin/Left/Guide/VBox"]

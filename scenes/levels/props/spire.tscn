@@ -1,17 +1,8 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bpfi5ekj5jdmw"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ewbg8"]
-albedo_color = Color(0.5, 0.48, 0.5, 1)
+[ext_resource type="PackedScene" uid="uid://c6p1apx84l30k" path="res://assets/environment/forest/Rock_1_N_Color1.gltf" id="1_rock_1_n"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_gudq8"]
-bottom_radius = 5.0
-height = 50.0
-radial_segments = 6
-rings = 1
+[node name="Spire" type="Node3D" unique_id=288671071]
 
-[node name="Spire" type="Node3D" unique_id=1785926106]
-
-[node name="Rock" type="MeshInstance3D" parent="." unique_id=247870205]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
-material_override = SubResource("StandardMaterial3D_ewbg8")
-mesh = SubResource("CylinderMesh_gudq8")
+[node name="Rock0" parent="." unique_id=1661474425 instance=ExtResource("1_rock_1_n")]
+transform = Transform3D(3.2, 0, 0, 0, 3.2, 0, 0, 0, 3.2, 0, 26, 0)

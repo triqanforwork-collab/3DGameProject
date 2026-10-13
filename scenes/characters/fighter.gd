@@ -64,6 +64,8 @@ var facing: Vector3 = Vector3.BACK
 var last_attacker: Fighter
 ## Số lần còn được hồi sinh khi rơi khỏi sàn (Main đặt theo màn).
 var respawns_left: int = 0
+## Vận tốc môi trường đẩy trong tick này (vd. gió). Dùng xong là xoá, nên nguồn đẩy phải cộng lại mỗi tick.
+var push_velocity: Vector3 = Vector3.ZERO
 
 var gravity: float = float(ProjectSettings.get_setting("physics/3d/default_gravity"))
 
@@ -148,8 +150,9 @@ func _physics_process(delta: float) -> void:
 	var decay := knockback_ground_decay if is_on_floor() else knockback_air_decay
 	_knockback = _knockback.move_toward(Vector3.ZERO, decay * delta)
 
-	velocity = _move_velocity + _knockback
+	velocity = _move_velocity + _knockback + push_velocity
 	velocity.y = vertical
+	push_velocity = Vector3.ZERO
 	# move_and_slide quét hình dạng theo chuyển động nên không xuyên qua đối thủ
 	# (bước lao ~0.25 m/tick < bán kính capsule 0.5 m).
 	move_and_slide()
@@ -246,14 +249,15 @@ func _check_dash_hits() -> void:
 		hit_landed.emit(self, other, point)
 
 
-func receive_hit(attacker: Fighter, dir: Vector3, force: float) -> void:
+## attacker = null khi bị môi trường hất (vd. dung nham), lift < 0 = dùng knockback_lift.
+func receive_hit(attacker: Fighter, dir: Vector3, force: float, lift: float = -1.0) -> void:
 	if not is_active() or is_spawn_protected():
 		return
 	_dash_time_left = 0.0
 	_move_velocity *= 0.2
 	dir.y = 0.0
 	_knockback = dir.normalized() * force / weight
-	velocity.y = maxf(velocity.y, knockback_lift)
+	velocity.y = maxf(velocity.y, knockback_lift if lift < 0.0 else lift)
 	_stun_left = hitstun_time
 	last_attacker = attacker
 	_last_hit_msec = Time.get_ticks_msec()

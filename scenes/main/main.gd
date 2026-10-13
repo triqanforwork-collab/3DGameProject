@@ -78,6 +78,7 @@ func _bind_level() -> void:
 	arena = level.arena
 	arena.ring_warning.connect(_on_ring_warning)
 	arena.ring_dropped.connect(_on_ring_dropped)
+	level.announced.connect(ui.announce.bind(1.2))
 	camera.arena = arena
 
 
@@ -143,7 +144,8 @@ func start_stage() -> void:
 	_last_count_shown = -1
 	ui.show_hud()
 	Sfx.play_music(level.music)
-	ui.feed("MÀN %d/%d: %s" % [stage_index + 1, stage_count(), level.stage_name.to_upper()])
+	var intro := "MÀN %d/%d: %s" % [stage_index + 1, stage_count(), level.stage_name.to_upper()]
+	ui.feed(intro + ("\n" + level.stage_hint if level.stage_hint else ""))
 	_apply_camera_mode()
 
 
@@ -204,9 +206,13 @@ func _setup_match() -> void:
 		brain.reaction_time = level.bot_reaction_time
 		brain.aim_error_deg = level.bot_aim_error_deg
 		brain.aggression = level.bot_aggression
+		# Sàn trơn: bot giữ xa mép hơn vì khó dừng.
+		brain.edge_margin *= 2.0 - level.traction
 		f.add_child(brain)
 
 	for f in fighters:
+		f.acceleration *= level.traction
+		f.knockback_ground_decay *= level.traction
 		f.dashed.connect(_on_fighter_dashed)
 		f.hit_landed.connect(_on_hit_landed)
 		f.eliminated.connect(_on_fighter_eliminated)

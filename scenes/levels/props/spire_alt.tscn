@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bpsq34xdfjnja"]
+
+[ext_resource type="PackedScene" uid="uid://boxw3xdt35oj3" path="res://assets/environment/forest/Rock_1_Q_Color1.gltf" id="1_rock_1_q"]
+
+[node name="SpireAlt" type="Node3D" unique_id=447993251]
+
+[node name="Rock0" parent="." unique_id=350574943 instance=ExtResource("1_rock_1_q")]
+transform = Transform3D(2.2981, 0, -1.9284, 0, 3, 0, 1.9284, 0, 2.2981, 0, 26, 0)

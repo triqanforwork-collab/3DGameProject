@@ -15,6 +15,8 @@
 [ext_resource type="Shape3D" path="res://assets/arena/volcano/ring3_shape.res" id="12_8ooar"]
 [ext_resource type="PackedScene" path="res://scenes/levels/props/basalt_spire.tscn" id="13_1aa57"]
 [ext_resource type="PackedScene" path="res://scenes/levels/props/smoke_cloud.tscn" id="14_22mc7"]
+[ext_resource type="Material" path="res://assets/shaders/lava_sea.tres" id="15_lava"]
+[ext_resource type="Script" path="res://scenes/levels/hazards/lava_vents.gd" id="16_vents"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aql7r"]
 sky_top_color = Color(0.22, 0.1, 0.08, 1)
@@ -105,14 +107,10 @@ outer_radius = 6.25
 rings = 48
 ring_segments = 6
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dhq68"]
-albedo_color = Color(0.55, 0.12, 0.03, 1)
-emission_enabled = true
-emission = Color(0.9, 0.25, 0.04, 1)
-emission_energy_multiplier = 0.7
-
 [sub_resource type="PlaneMesh" id="PlaneMesh_dq0eh"]
 size = Vector2(400, 400)
+subdivide_width = 80
+subdivide_depth = 80
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7cxv6"]
 transparency = 1
@@ -132,6 +130,7 @@ colors = PackedColorArray(1, 0.7, 0.2, 1, 1, 0.25, 0.05, 0)
 [node name="Volcano" type="Node3D" unique_id=311093948]
 script = ExtResource("1_38v5q")
 stage_name = "Miệng Núi Lửa"
+stage_hint = "Dung nham phun ở vòng đỏ — tránh ra, hoặc dụ đối thủ vào!"
 bot_count = 11
 bot_respawns = 1
 music = ExtResource("2_7dirn")
@@ -295,99 +294,81 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 
 [node name="Sea" type="MeshInstance3D" parent="Scenery" unique_id=2104892654]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
-material_override = SubResource("StandardMaterial3D_dhq68")
+material_override = ExtResource("15_lava")
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_dq0eh")
 
-[node name="Spire1" type="Node3D" parent="Scenery" unique_id=1228779884 instance=ExtResource("13_1aa57")]
-transform = Transform3D(-0.6556058, 0, -0.9399303, 0, 1.2636802, 0, 0.9399303, 0, -0.6556058, 26.378185, -45, 2.4858449)
+[node name="Spire1" parent="Scenery" instance=ExtResource("13_1aa57")]
+transform = Transform3D(-0.63441, 0, 0.89501, 0, 1.09705, 0, -0.89501, 0, -0.63441, -31.384, -45.000, -15.383)
 
-[node name="Spire2" type="Node3D" parent="Scenery" unique_id=1837592821 instance=ExtResource("13_1aa57")]
-transform = Transform3D(0.47887084, 0, -0.7194799, 0, 0.9310526, 0, 0.7194799, 0, 0.47887084, 48.809364, -45, 23.321508)
+[node name="Spire2" parent="Scenery" instance=ExtResource("13_1aa57")]
+transform = Transform3D(-0.61677, 0, 0.86857, 0, 1.06528, 0, -0.86857, 0, -0.61677, -18.843, -45.000, -29.763)
 
-[node name="Spire3" type="Node3D" parent="Scenery" unique_id=177016646 instance=ExtResource("13_1aa57")]
-transform = Transform3D(-0.50830436, 0, 0.029181832, 0, 1.0374837, 0, -0.029181832, 0, -0.50830436, 37.158417, -45, 26.264994)
+[node name="Spire3" parent="Scenery" instance=ExtResource("13_1aa57")]
+transform = Transform3D(-1.31712, 0, 0.23641, 0, 1.33817, 0, -0.23641, 0, -1.31712, -2.360, -45.000, -33.928)
 
-[node name="Spire4" type="Node3D" parent="Scenery" unique_id=491781857 instance=ExtResource("13_1aa57")]
-transform = Transform3D(0.95518637, 0, -0.79770494, 0, 0.9642143, 0, 0.79770494, 0, 0.95518637, 28.227106, -45, 49.69892)
+[node name="Spire4" parent="Scenery" instance=ExtResource("13_1aa57")]
+transform = Transform3D(-0.38721, 0, -1.15952, 0, 1.22247, 0, 1.15952, 0, -0.38721, 14.926, -45.000, -32.023)
 
-[node name="Spire5" type="Node3D" parent="Scenery" unique_id=141357480 instance=ExtResource("13_1aa57")]
-transform = Transform3D(0.37488323, 0, -0.3939803, 0, 1.1324718, 0, 0.3939803, 0, 0.37488323, 2.3004575, -45, 32.30452)
+[node name="Spire5" parent="Scenery" instance=ExtResource("13_1aa57")]
+transform = Transform3D(-0.79447, 0, 0.63716, 0, 1.01841, 0, -0.63716, 0, -0.79447, 27.558, -45.000, -19.894)
 
-[node name="Spire6" type="Node3D" parent="Scenery" unique_id=1994465956 instance=ExtResource("13_1aa57")]
-transform = Transform3D(-0.8805359, 0, -0.53098285, 0, 1.0696118, 0, 0.53098285, 0, -0.8805359, -7.951376, -45, 37.0896)
+[node name="Spire6" parent="Scenery" instance=ExtResource("13_1aa57")]
+transform = Transform3D(1.16585, 0, 0.56675, 0, 1.29631, 0, -0.56675, 0, 1.16585, 33.724, -45.000, -1.925)
 
-[node name="Spire7" type="Node3D" parent="Scenery" unique_id=1216932688 instance=ExtResource("13_1aa57")]
-transform = Transform3D(-0.32568425, 0, 0.60122496, 0, 1.210209, 0, -0.60122496, 0, -0.32568425, -22.63756, -45, 36.766525)
+[node name="Spire7" parent="Scenery" instance=ExtResource("13_1aa57")]
+transform = Transform3D(0.97722, 0, -0.35891, 0, 1.04104, 0, 0.35891, 0, 0.97722, 31.139, -45.000, 14.954)
 
-[node name="Spire8" type="Node3D" parent="Scenery" unique_id=1759982246 instance=ExtResource("13_1aa57")]
-transform = Transform3D(0.51943165, 0, -0.00054778706, 0, 1.3301088, 0, 0.00054778706, 0, 0.51943165, -34.79429, -45, 28.561462)
+[node name="Spire8" parent="Scenery" instance=ExtResource("13_1aa57")]
+transform = Transform3D(0.85599, 0, 0.64978, 0, 1.07468, 0, -0.64978, 0, 0.85599, 17.577, -45.000, 28.346)
 
-[node name="Spire9" type="Node3D" parent="Scenery" unique_id=2013331707 instance=ExtResource("13_1aa57")]
-transform = Transform3D(0.4933705, 0, 0.25525144, 0, 0.99434686, 0, -0.25525144, 0, 0.4933705, -48.73453, -45, 24.513668)
+[node name="Spire9" parent="Scenery" instance=ExtResource("13_1aa57")]
+transform = Transform3D(0.05117, 0, -1.11141, 0, 1.11258, 0, 1.11141, 0, 0.05117, 1.825, -45.000, 32.819)
 
-[node name="Spire10" type="Node3D" parent="Scenery" unique_id=13784398 instance=ExtResource("13_1aa57")]
-transform = Transform3D(0.3265782, 0, -0.8409313, 0, 1.0033004, 0, 0.8409313, 0, 0.3265782, -29.968987, -45, -2.330942)
+[node name="Spire10" parent="Scenery" instance=ExtResource("13_1aa57")]
+transform = Transform3D(-0.39634, 0, -1.11531, 0, 1.18364, 0, 1.11531, 0, -0.39634, -13.203, -45.000, 29.718)
 
-[node name="Spire11" type="Node3D" parent="Scenery" unique_id=165822153 instance=ExtResource("13_1aa57")]
-transform = Transform3D(0.8109148, 0, -0.18032932, 0, 1.135683, 0, 0.18032932, 0, 0.8109148, -39.26743, -45, -16.657207)
+[node name="Spire11" parent="Scenery" instance=ExtResource("13_1aa57")]
+transform = Transform3D(1.01640, 0, -0.21325, 0, 1.03853, 0, 0.21325, 0, 1.01640, -26.973, -45.000, 19.110)
 
-[node name="Spire12" type="Node3D" parent="Scenery" unique_id=1362754442 instance=ExtResource("13_1aa57")]
-transform = Transform3D(0.89866495, 0, -0.49889272, 0, 1.0272313, 0, 0.49889272, 0, 0.89866495, -29.253736, -45, -20.708376)
-
-[node name="Spire13" type="Node3D" parent="Scenery" unique_id=490094374 instance=ExtResource("13_1aa57")]
-transform = Transform3D(-0.82545537, 0, -0.0075040176, 0, 1.252214, 0, 0.0075040176, 0, -0.82545537, -28.142675, -45, -44.98698)
-
-[node name="Spire14" type="Node3D" parent="Scenery" unique_id=1344126462 instance=ExtResource("13_1aa57")]
-transform = Transform3D(1.1843715, 0, 0.030523092, 0, 1.1122177, 0, -0.030523092, 0, 1.1843715, -8.611614, -45, -40.046658)
-
-[node name="Spire15" type="Node3D" parent="Scenery" unique_id=1560720665 instance=ExtResource("13_1aa57")]
-transform = Transform3D(0.418167, 0, 0.41547614, 0, 1.0205548, 0, -0.41547614, 0, 0.418167, 4.193457, -45, -30.867044)
-
-[node name="Spire16" type="Node3D" parent="Scenery" unique_id=90635872 instance=ExtResource("13_1aa57")]
-transform = Transform3D(-0.5363425, 0, 0.3640724, 0, 1.0509318, 0, -0.3640724, 0, -0.5363425, 17.306944, -45, -38.137226)
-
-[node name="Spire17" type="Node3D" parent="Scenery" unique_id=1905629219 instance=ExtResource("13_1aa57")]
-transform = Transform3D(0.008270269, 0, -0.5502123, 0, 1.260222, 0, 0.5502123, 0, 0.008270269, 40.38678, -45, -34.387344)
-
-[node name="Spire18" type="Node3D" parent="Scenery" unique_id=1967070003 instance=ExtResource("13_1aa57")]
-transform = Transform3D(0.4767061, 0, -0.5386062, 0, 0.89436996, 0, 0.5386062, 0, 0.4767061, 35.29233, -45, -8.58543)
+[node name="Spire12" parent="Scenery" instance=ExtResource("13_1aa57")]
+transform = Transform3D(0.85174, 0, -0.83944, 0, 1.19588, 0, 0.83944, 0, 0.85174, -34.710, -45.000, 1.482)
 
 [node name="Cloud1" type="Node3D" parent="Scenery" unique_id=1430351210 instance=ExtResource("14_22mc7")]
-transform = Transform3D(-0.43025258, 0, -2.285431, 0, 2.3255777, 0, 2.285431, 0, -0.43025258, -32.211193, -6.8693657, 67.640396)
+transform = Transform3D(-0.43025, 0, -2.28543, 0, 2.32558, 0, 2.28543, 0, -0.43025, 19.00534, -6.86937, 50.62141)
 
 [node name="Cloud2" type="Node3D" parent="Scenery" unique_id=1680628141 instance=ExtResource("14_22mc7")]
-transform = Transform3D(1.3425008, 0, 1.7717534, 0, 2.2229302, 0, -1.7717534, 0, 1.3425008, -51.62875, -9.319785, 48.73746)
+transform = Transform3D(1.3425, 0, 1.77175, 0, 2.22293, 0, -1.77175, 0, 1.3425, -44.18018, -9.31978, 11.99702)
 
 [node name="Cloud3" type="Node3D" parent="Scenery" unique_id=211424553 instance=ExtResource("14_22mc7")]
-transform = Transform3D(-0.8501573, 0, 2.8462696, 0, 2.9705248, 0, -2.8462696, 0, -0.8501573, 32.417885, -7.3855195, -17.17469)
+transform = Transform3D(-0.85016, 0, 2.84627, 0, 2.97052, 0, -2.84627, 0, -0.85016, -30.64257, -7.38552, 37.97301)
 
 [node name="Cloud4" type="Node3D" parent="Scenery" unique_id=706530553 instance=ExtResource("14_22mc7")]
-transform = Transform3D(2.7866564, 0, -0.63743544, 0, 2.858632, 0, 0.63743544, 0, 2.7866564, -38.732742, -9.338202, 32.698517)
+transform = Transform3D(2.78666, 0, -0.63744, 0, 2.85863, 0, 0.63744, 0, 2.78666, 49.16919, -9.3382, 41.19508)
 
 [node name="Cloud5" type="Node3D" parent="Scenery" unique_id=676580559 instance=ExtResource("14_22mc7")]
-transform = Transform3D(-2.1072087, 0, 0.62593377, 0, 2.1982088, 0, -0.62593377, 0, -2.1072087, 21.693554, -6.453676, -57.043564)
+transform = Transform3D(-2.10721, 0, 0.62593, 0, 2.19821, 0, -0.62593, 0, -2.10721, 48.73065, -6.45368, 4.55294)
 
 [node name="Cloud6" type="Node3D" parent="Scenery" unique_id=698936395 instance=ExtResource("14_22mc7")]
-transform = Transform3D(2.083633, 0, -0.941087, 0, 2.2863007, 0, 0.941087, 0, 2.083633, 14.687994, -8.865229, 70.67369)
+transform = Transform3D(2.08363, 0, -0.94109, 0, 2.2863, 0, 0.94109, 0, 2.08363, 43.12844, -8.86523, -36.18355)
 
 [node name="Cloud7" type="Node3D" parent="Scenery" unique_id=871988159 instance=ExtResource("14_22mc7")]
-transform = Transform3D(1.6332132, 0, -0.275693, 0, 1.6563188, 0, 0.275693, 0, 1.6332132, 29.082628, -9.441503, -14.569302)
+transform = Transform3D(1.63321, 0, -0.27569, 0, 1.65632, 0, 0.27569, 0, 1.63321, 24.25734, -9.4415, 39.98443)
 
 [node name="Cloud8" type="Node3D" parent="Scenery" unique_id=98079906 instance=ExtResource("14_22mc7")]
-transform = Transform3D(2.0109954, 0, 1.8273611, 0, 2.7172322, 0, -1.8273611, 0, 2.0109954, 70.48911, -6.716812, -27.031527)
+transform = Transform3D(2.011, 0, 1.82736, 0, 2.71723, 0, -1.82736, 0, 2.011, -4.27502, -6.71681, 64.1764)
 
 [node name="Cloud9" type="Node3D" parent="Scenery" unique_id=550730581 instance=ExtResource("14_22mc7")]
-transform = Transform3D(2.3471098, 0, -0.037957963, 0, 2.3474169, 0, 0.037957963, 0, 2.3471098, 73.48491, -8.125471, -27.707928)
+transform = Transform3D(2.34711, 0, -0.03796, 0, 2.34742, 0, 0.03796, 0, 2.34711, 44.84093, -8.12547, -10.98839)
 
 [node name="Cloud10" type="Node3D" parent="Scenery" unique_id=1026810275 instance=ExtResource("14_22mc7")]
-transform = Transform3D(2.0183122, 0, 1.4754429, 0, 2.5001032, 0, -1.4754429, 0, 2.0183122, 25.444246, -7.709439, 50.059856)
+transform = Transform3D(2.01831, 0, 1.47544, 0, 2.5001, 0, -1.47544, 0, 2.01831, -12.54727, -7.70944, -51.09481)
 
 [node name="Cloud11" type="Node3D" parent="Scenery" unique_id=1481797469 instance=ExtResource("14_22mc7")]
-transform = Transform3D(-0.81380075, 0, -1.7536477, 0, 1.933275, 0, 1.7536477, 0, -0.81380075, 28.016901, -8.81437, -43.34191)
+transform = Transform3D(-0.8138, 0, -1.75365, 0, 1.93328, 0, 1.75365, 0, -0.8138, -11.86896, -8.81437, 51.33008)
 
 [node name="Cloud12" type="Node3D" parent="Scenery" unique_id=2005815373 instance=ExtResource("14_22mc7")]
-transform = Transform3D(1.9329057, 0, 0.4555572, 0, 1.9858643, 0, -0.4555572, 0, 1.9329057, -62.231754, -6.6612177, 12.16603)
+transform = Transform3D(1.93291, 0, 0.45556, 0, 1.98586, 0, -0.45556, 0, 1.93291, 4.5809, -6.66122, -68.28744)
 
 [node name="Embers" type="CPUParticles3D" parent="Scenery" unique_id=2105969476]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
@@ -407,3 +388,6 @@ initial_velocity_max = 3.0
 scale_amount_min = 0.5
 scale_amount_max = 1.2
 color_ramp = SubResource("Gradient_od0km")
+
+[node name="LavaVents" type="Node3D" parent="."]
+script = ExtResource("16_vents")

@@ -8,6 +8,8 @@ const COUNTDOWN_FRAMES := 60 * 3 + 10
 var main: Node3D
 var sfx: Node  # autoload Sfx (script SceneTree không gọi trực tiếp được tên autoload)
 var failures := 0
+## Quãng trượt của người chơi khi bị hất ở màn 1, để so với sàn băng màn 2.
+var slide_stage1 := 0.0
 
 
 func check(cond: bool, msg: String) -> void:
@@ -34,6 +36,9 @@ func _run() -> void:
 	GameSettings.path = "user://test_settings.cfg"
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(GameSettings.path))
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(Records.path))
+	# Autoload Sfx đã nạp cài đặt thật của máy lúc khởi động: đưa âm lượng về mặc định.
+	GameSettings.volumes = {&"Master": 1.0, &"Music": 0.7, &"SFX": 1.0}
+	GameSettings.apply_audio()
 
 	main = load("res://scenes/main/main.tscn").instantiate()
 	root.add_child(main)
@@ -55,6 +60,7 @@ func _run() -> void:
 	await _test_lose_and_retry()
 	await _test_progression_to_stage3()
 	await _test_respawn()
+	await _test_lava_vents()
 	await _test_pause_restart_and_draw()
 	await _test_clear_run_and_records()
 	await _test_third_person()
@@ -171,6 +177,25 @@ func _test_stage1_basics() -> void:
 	victim.controls_enabled = false
 	victim.move_input = Vector3.ZERO
 
+	print("[gió giật (màn 1)]")
+	var wind = main.level.get_node("WindGusts")  # không khai kiểu: script dùng autoload Sfx
+	check(wind.is_in_group(&"hazards") and main.level.stage_hint != "", "màn 1 có gió giật + câu giới thiệu")
+	_park_bots()
+	_place(p, Vector3(0, 0.05, 0))
+	await frames(5)
+	wind.warn(Vector3.RIGHT)
+	check(wind.streaks.emitting and main.ui.announce_label.text == "GIÓ GIẬT!", "báo trước: vệt gió + thông báo")
+	await frames(10)
+	check(absf(p.global_position.x) < 0.05, "đang báo trước thì chưa bị đẩy")
+	check(wind.bot_steer(Vector3.ZERO).dot(Vector3.RIGHT) < -0.5, "bot chạy ngược gió")
+	await frames(int(60 * (wind.warning_time + wind.gust_time * 0.5)))
+	check(p.global_position.x > 1.0, "gió đẩy người chơi đứng yên theo hướng gió (x=%.2f)" % p.global_position.x)
+	await frames(int(60 * wind.gust_time))
+	var x_after: float = p.global_position.x
+	await frames(30)
+	check(not wind.streaks.emitting and absf(p.global_position.x - x_after) < 0.05, "hết đợt gió: tắt vệt gió, hết bị đẩy")
+	slide_stage1 = await _slide_distance(p)
+
 	print("[rơi khỏi sàn -> bị loại đúng 1 lần (màn 1 không hồi sinh)]")
 	var count := {"elim": 0, "fell": 0}
 	victim.eliminated.connect(func(_f): count.elim += 1)
@@ -245,6 +270,12 @@ func _test_progression_to_stage3() -> void:
 	check(main.ui.alive_label.text.begins_with("MÀN 2/3"), "HUD hiện màn 2/3")
 	check(sfx.current_music().resource_path.ends_with("stage2_walking_dunes_unblinking_sun.ogg"), "màn 2 phát nhạc The Walking Dunes")
 
+	print("[sàn băng trơn (màn 2)]")
+	check(main.level.traction < 1.0 and main.level.stage_hint != "", "màn 2 có sàn trơn + câu giới thiệu")
+	_freeze_bots()
+	var slide_ice := await _slide_distance(main.player)
+	check(slide_ice > slide_stage1 * 1.3, "bị hất trượt xa hơn màn 1 (%.1f m so với %.1f m)" % [slide_ice, slide_stage1])
+
 	print("[thắng màn 2 -> màn 3]")
 	await _win_current_stage()
 	check(main.ui.result_title.text == "HOÀN THÀNH MÀN 2!", "hiện HOÀN THÀNH MÀN 2")
@@ -259,6 +290,8 @@ func _test_progression_to_stage3() -> void:
 		all_one = all_one and b.respawns_left == 1
 	check(all_one and main.player.respawns_left == 0, "mỗi bot có 1 lần hồi sinh, người chơi không có")
 	_check_on_markers()
+	# Tắt đợt phun tự động để các test màn 3 không bị phun ngẫu nhiên; test riêng gọi warn().
+	main.level.get_node("LavaVents").first_delay = 1e9
 	await frames(COUNTDOWN_FRAMES)
 
 
@@ -302,6 +335,32 @@ func _test_respawn() -> void:
 	await frames(3)
 	check(count.elim == 1 and count.fell == 1 and bot.is_eliminated, "rơi lần 2: bị loại hẳn")
 	check(main.get_alive_count() == alive_before - 1, "số người còn lại giảm 1")
+
+
+func _test_lava_vents() -> void:
+	print("[dung nham phun (màn 3)]")
+	var vents = main.level.get_node("LavaVents")  # không khai kiểu: script dùng autoload Sfx
+	check(vents.is_in_group(&"hazards") and main.level.stage_hint != "", "màn 3 có dung nham + câu giới thiệu")
+	_freeze_bots()
+	_park_bots()
+	var p: Fighter = main.player
+	var far: Fighter = main.fighters.slice(1).filter(func(b): return b.is_active())[0]
+	_place(p, Vector3(0.6, 0.05, 0))
+	await frames(5)
+	var far_pos: Vector3 = far.global_position
+	var vent_at: Array[Vector3] = [Vector3(0, 0.05, 0)]
+	vents.warn(vent_at)
+	await frames(2)
+	check(vents.get_children().any(func(n): return String(n.name).begins_with("LandingMarker")), "vòng đỏ báo trước chỗ phun")
+	check(main.ui.announce_label.text == "DUNG NHAM SẮP PHUN!", "thông báo lần phun đầu tiên")
+	check(vents.bot_steer(Vector3(0.8, 0, 0)).x > 0.0, "bot né ra xa điểm sắp phun")
+	check(absf(p.global_position.x - 0.6) < 0.05, "chưa phun thì chưa ai bị hất")
+	await frames(int(60 * vents.warning_time) + 10)
+	check(p.global_position.y > 0.4 and p.global_position.x > 1.0, "phun hất người đứng gần lên cao, ra xa tâm")
+	check(vents.get_children().any(func(n): return String(n.name).begins_with("LavaBurst")), "có hiệu ứng phun")
+	check(far.global_position.distance_to(far_pos) < 0.05 and vents.pending.is_empty(), "người đứng xa không sao, hết điểm cảnh báo")
+	await frames(120)
+	check(p.is_on_floor() and not p.is_eliminated, "đứng giữa sàn thì bị hất nhưng vẫn rơi lại trên sàn")
 
 
 func _test_pause_restart_and_draw() -> void:
@@ -573,6 +632,23 @@ func _freeze_bots() -> void:
 		b.controls_enabled = false
 		b.move_input = Vector3.ZERO
 	main.player.controls_enabled = true
+
+
+## Dồn bot còn trên sàn về một hàng ở phía -X để người chơi bị đẩy về +X không vướng ai.
+func _park_bots() -> void:
+	var bots: Array = main.fighters.slice(1).filter(func(b): return b.is_active())
+	for i in bots.size():
+		_place(bots[i], Vector3(-4.5, 0.05, (i - (bots.size() - 1) * 0.5) * 1.15))
+
+
+## Đứng giữa sàn, bị hất về +X với lực cố định; trả về quãng đã trượt khi dừng hẳn.
+func _slide_distance(f: Fighter) -> float:
+	_park_bots()
+	_place(f, Vector3(0, 0.05, 0))
+	await frames(5)
+	f.receive_hit(null, Vector3.RIGHT, 9.0)
+	await frames(120)
+	return f.global_position.x
 
 
 func _check_on_markers() -> void:

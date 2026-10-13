@@ -1,0 +1,127 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/fx/one_shot_fx.gd" id="1_lavab"]
+
+[sub_resource type="StandardMaterial3D" id="mat_chunks"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[sub_resource type="BoxMesh" id="mesh_chunk"]
+size = Vector3(0.22, 0.22, 0.22)
+
+[sub_resource type="Gradient" id="grad_chunks"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.85, 0.35, 1, 1, 0.4, 0.06, 1, 0.25, 0.08, 0.05, 1)
+
+[sub_resource type="StandardMaterial3D" id="mat_column"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.55, 0.12, 0.85)
+
+[sub_resource type="CylinderMesh" id="mesh_column"]
+top_radius = 0.35
+bottom_radius = 1.2
+height = 1.0
+radial_segments = 10
+rings = 1
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Animation" id="anim_erupt"]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Column:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.6, 0.2, 0.6), Vector3(1, 4, 1), Vector3(1.3, 5, 1.3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Column:transparency")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flash:light_energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 6.0, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Column:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.1, 0), Vector3(0, 2, 0), Vector3(0, 2.5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="lib_erupt"]
+_data = {
+&"erupt": SubResource("anim_erupt")
+}
+
+[node name="LavaBurst" type="Node3D"]
+script = ExtResource("1_lavab")
+lifetime = 1.6
+
+[node name="Chunks" type="CPUParticles3D" parent="."]
+material_override = SubResource("mat_chunks")
+cast_shadow = 0
+emitting = false
+amount = 24
+lifetime = 1.2
+one_shot = true
+explosiveness = 0.9
+mesh = SubResource("mesh_chunk")
+emission_shape = 1
+emission_sphere_radius = 0.6
+direction = Vector3(0, 1, 0)
+spread = 28.0
+gravity = Vector3(0, -14, 0)
+initial_velocity_min = 6.0
+initial_velocity_max = 11.0
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+scale_amount_min = 0.5
+scale_amount_max = 1.4
+color_ramp = SubResource("grad_chunks")
+
+[node name="Column" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.6, 0, 0, 0, 0.2, 0, 0, 0, 0.6, 0, 0.1, 0)
+material_override = SubResource("mat_column")
+cast_shadow = 0
+mesh = SubResource("mesh_column")
+
+[node name="Flash" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+light_color = Color(1, 0.5, 0.15, 1)
+light_energy = 0.0
+omni_range = 7.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries/ = SubResource("lib_erupt")
+autoplay = &"erupt"

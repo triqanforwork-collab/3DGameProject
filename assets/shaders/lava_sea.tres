@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://assets/shaders/lava.gdshader" id="1_lava"]
+[ext_resource type="NoiseTexture2D" path="res://assets/shaders/noise.tres" id="2_noise"]
+
+[resource]
+shader = ExtResource("1_lava")
+shader_parameter/noise_tex = ExtResource("2_noise")
+shader_parameter/wave_height = 0.4
+shader_parameter/scale = 0.018
+shader_parameter/pool_level = 0.34
+shader_parameter/crack_width = 0.025
+shader_parameter/glow = 1.4

@@ -6,6 +6,7 @@ const HIT_BURST := preload("res://scenes/fx/hit_burst.tscn")
 const DUST_RING := preload("res://scenes/fx/dust_ring.tscn")
 const POPUP_TEXT := preload("res://scenes/fx/popup_text.tscn")
 const LANDING_MARKER := preload("res://scenes/fx/landing_marker.tscn")
+const LAVA_BURST := preload("res://scenes/fx/lava_burst.tscn")
 
 
 static func _spawn(scene: PackedScene, parent: Node, pos: Vector3) -> Node3D:
@@ -15,7 +16,7 @@ static func _spawn(scene: PackedScene, parent: Node, pos: Vector3) -> Node3D:
 	return fx
 
 
-## Tia sáng + vòng sóng xung kích khi lao trúng.
+## Tia lửa bắn ra khi lao trúng.
 static func hit_burst(parent: Node, pos: Vector3) -> void:
 	_spawn(HIT_BURST, parent, pos)
 
@@ -34,6 +35,12 @@ static func popup_text(parent: Node, pos: Vector3, text: String, color: Color) -
 	label.modulate = color
 
 
-## Vòng đỏ nhấp nháy trên sàn báo chỗ nhân vật hồi sinh sắp rơi xuống.
-static func landing_marker(parent: Node, pos: Vector3) -> void:
-	_spawn(LANDING_MARKER, parent, pos)
+## Vòng đỏ nhấp nháy trên sàn: chỗ nhân vật hồi sinh sắp rơi xuống / chỗ dung nham sắp phun.
+## size = bán kính vùng muốn đánh dấu (m).
+static func landing_marker(parent: Node, pos: Vector3, size: float = 1.2) -> void:
+	_spawn(LANDING_MARKER, parent, pos).scale = Vector3.ONE * size / 1.2
+
+
+## Cột dung nham phun lên + mảnh đá văng + chớp sáng (miệng dung nham ở màn Núi Lửa).
+static func lava_burst(parent: Node, pos: Vector3) -> void:
+	_spawn(LAVA_BURST, parent, pos)

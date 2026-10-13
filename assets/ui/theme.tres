@@ -1,25 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://b2wkhqpo8uogl"]
 
-[ext_resource type="Texture2D" path="res://assets/ui/slider_grabber.png" id="tex_grabber"]
-[ext_resource type="Texture2D" path="res://assets/ui/slider_grabber_hl.png" id="tex_grabber_hl"]
-
-[sub_resource type="StyleBoxFlat" id="slider_bg"]
-content_margin_top = 6.0
-content_margin_bottom = 6.0
-bg_color = Color(0.3, 0.27, 0.25, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="slider_fill"]
-content_margin_top = 6.0
-content_margin_bottom = 6.0
-bg_color = Color(0.98, 0.78, 0.3, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+[ext_resource type="Texture2D" uid="uid://c8w15d73nmrjw" path="res://assets/ui/slider_grabber.png" id="tex_grabber"]
+[ext_resource type="Texture2D" uid="uid://c3qan386kv4bj" path="res://assets/ui/slider_grabber_hl.png" id="tex_grabber_hl"]
 
 [sub_resource type="StyleBoxFlat" id="btn_hover"]
 content_margin_left = 24.0
@@ -69,6 +51,24 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="slider_fill"]
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.98, 0.78, 0.3, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="slider_bg"]
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0.3, 0.27, 0.25, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [sub_resource type="StyleBoxFlat" id="panel"]
 content_margin_left = 18.0
 content_margin_top = 10.0
@@ -111,15 +111,15 @@ Button/styles/normal = SubResource("btn_normal")
 Button/styles/pressed = SubResource("btn_pressed")
 CheckButton/colors/font_color = Color(0.98, 0.94, 0.86, 1)
 CheckButton/font_sizes/font_size = 22
-Label/colors/font_color = Color(0.98, 0.94, 0.86, 1)
-Label/colors/font_outline_color = Color(0.08, 0.05, 0.04, 1)
-Label/constants/outline_size = 6
-PanelContainer/styles/panel = SubResource("panel")
 HSlider/icons/grabber = ExtResource("tex_grabber")
 HSlider/icons/grabber_highlight = ExtResource("tex_grabber_hl")
 HSlider/styles/grabber_area = SubResource("slider_fill")
 HSlider/styles/grabber_area_highlight = SubResource("slider_fill")
 HSlider/styles/slider = SubResource("slider_bg")
+Label/colors/font_color = Color(0.98, 0.94, 0.86, 1)
+Label/colors/font_outline_color = Color(0.08, 0.05, 0.04, 1)
+Label/constants/outline_size = 6
+PanelContainer/styles/panel = SubResource("panel")
 ProgressBar/styles/background = SubResource("bar_bg")
 ProgressBar/styles/fill = SubResource("bar_fill")
 RichTextLabel/colors/default_color = Color(0.98, 0.94, 0.86, 1)
